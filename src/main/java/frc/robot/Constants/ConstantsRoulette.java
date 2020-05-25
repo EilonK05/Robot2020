@@ -7,6 +7,10 @@
 
 package frc.robot.Constants;
 
+import com.revrobotics.ColorMatch;
+
+import edu.wpi.first.wpilibj.util.Color;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants.  This class should not be used for any other purpose.  All constants should be
@@ -18,4 +22,13 @@ package frc.robot.Constants;
 public final class ConstantsRoulette {
 
     public static final int ROULETTE_MOTOR = 10;
+
+    public static final int ROULETTE_PISTON = 1;
+
+
+    // Color
+    public static final Color Red = ColorMatch.makeColor(1, 0, 0);
+    public static final Color Green = ColorMatch.makeColor(0, 1, 0);
+    public static final Color Blue = ColorMatch.makeColor(0, 0, 1);
+    public static final Color Yellow = ColorMatch.makeColor(0.5, 0.5, 0);
 }
