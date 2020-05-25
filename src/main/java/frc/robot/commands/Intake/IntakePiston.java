@@ -7,6 +7,7 @@
 
 package frc.robot.commands.Intake;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.Intake;
 
@@ -23,6 +24,10 @@ public class IntakePiston extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    intake.setPiston(!intake.getPiston());
+    if(intake.intakePiston.get() == Value.kForward){
+      intake.setReverse();
+    }else{
+      intake.setForward();
+    }
   }
 }

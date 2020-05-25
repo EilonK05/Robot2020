@@ -28,20 +28,11 @@ public class Intake extends SubsystemBase {
     intakePiston = new DoubleSolenoid(ConstantsIntake.INTAKE_PISTON_A, ConstantsIntake.INTAKE_PISTON_B);
   }
   // Piston Functions
-  public void setPiston(boolean state) {
-    if (state) {
-      intakePiston.set(Value.kForward);
-    }
-    else {
-      intakePiston.set(Value.kReverse);
-    }
+  public void setForward(){
+    intakePiston.set(Value.kForward);
   }
-  public boolean getPiston(){
-    if(intakePiston.get() == Value.kForward){
-      return true;
-    } else{
-      return false;
-    }
+  public void setReverse(){
+    intakePiston.set(Value.kReverse);
   }
   // Motor Functions
   public void setMotor(double power){

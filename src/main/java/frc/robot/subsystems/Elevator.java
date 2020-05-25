@@ -12,6 +12,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ConstantsElevator;
@@ -22,12 +23,12 @@ public class Elevator extends SubsystemBase {
    */
   CANSparkMax elevatorMotor;
   CANEncoder encoder;
-  DoubleSolenoid elevatorPiston;
+  Solenoid elevatorPiston;
   public static Elevator elevator;
   
   public Elevator() {
     elevatorMotor = new CANSparkMax(ConstantsElevator.ELEVATOR_MOTOR, MotorType.kBrushless);
-    elevatorPiston = new DoubleSolenoid(ConstantsElevator.ELEVATOR_PISTON_A, ConstantsElevator.ELEVATOR_PISTON_B);
+    elevatorPiston = new Solenoid(ConstantsElevator.ELEVATOR_PISTON);
     encoder = elevatorMotor.getEncoder();
     encoder.setPositionConversionFactor(1);
   }
@@ -36,20 +37,11 @@ public class Elevator extends SubsystemBase {
     elevatorMotor.set(power);
   }
   // Pistons Functions
-  public void setPiston(boolean state) {
-    if (state) {
-      elevatorPiston.set(Value.kForward);
-    }
-    else {
-      elevatorPiston.set(Value.kReverse);
-    }
+  public void setPiston(boolean state){
+    elevatorPiston.set(state);
   }
   public boolean getPiston(){
-    if(elevatorPiston.get() == Value.kForward){
-      return true;
-    } else{
-      return false;
-    }
+    return elevatorPiston.get();
   }
   // Encoder Function
   public double getEncoder(){
