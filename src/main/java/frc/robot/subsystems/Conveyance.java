@@ -8,7 +8,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ConstantsConveyance;
@@ -18,16 +18,18 @@ public class Conveyance extends SubsystemBase {
    * Creates a new Conveyance.
    */
   public static Conveyance conveyance;
-  
-  VictorSPX conveyanceMotor;
+
+  TalonSRX conveyanceMotor;
   public Conveyance() {
-    conveyanceMotor = new VictorSPX(ConstantsConveyance.CONVEYANCE_MOTOR);
+    conveyanceMotor = new TalonSRX(ConstantsConveyance.CONVEYANCE_MOTOR);
   }
 
   public void setMotor(double power){
     conveyanceMotor.set(ControlMode.PercentOutput, power);
   }
-
+  public double getVoltage(){
+    return conveyanceMotor.getStatorCurrent();
+  }
   public static Conveyance getinstance(){
     if (conveyance == null){
       conveyance = new Conveyance();
