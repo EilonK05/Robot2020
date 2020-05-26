@@ -5,20 +5,19 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Balance;
+package frc.robot.commands.Roulette;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.RobotContainer;
-import frc.robot.subsystems.Balance;
+import frc.robot.subsystems.Roulette;
 
-public class BalanceCommand extends CommandBase {
+public class RouletteMotor extends CommandBase {
   /**
-   * Creates a new Balance.
+   * Creates a new RouletteMotor.
    */
-  public Balance balance;
-   public BalanceCommand() {
-    balance = Balance.getinstance();
-    addRequirements(balance);
+  private Roulette roulette;
+  public RouletteMotor() {
+    roulette = Roulette.getinstance();
+    addRequirements(roulette);
   }
 
   // Called when the command is initially scheduled.
@@ -29,17 +28,13 @@ public class BalanceCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(RobotContainer.OperatingJoystick.getRawAxis(0) > 0.15 || RobotContainer.OperatingJoystick.getRawAxis(0) < 0.15){
-      balance.setMotor(RobotContainer.OperatingJoystick.getRawAxis(0));
-    }else{
-      balance.setMotor(0);
-    }
+    roulette.setMotor(0.5);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    balance.setMotor(0);
+    roulette.setMotor(0);
   }
 
   // Returns true when the command should end.

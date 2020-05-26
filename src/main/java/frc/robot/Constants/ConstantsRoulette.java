@@ -23,7 +23,7 @@ public final class ConstantsRoulette {
 
     public static final int ROULETTE_MOTOR = 10;
 
-    public static final int ROULETTE_PISTON = 1;
+    public static final int ROULETTE_PISTON = 6;
 
 
     // Color

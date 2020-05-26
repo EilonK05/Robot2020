@@ -15,6 +15,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpiutil.math.MathUtil;
 import frc.robot.Constants.ConstantsShooter;
@@ -66,12 +67,12 @@ public class Shooter extends SubsystemBase {
     return IR.get();
   }
   // Encoder Functions
-  public double getEncoder(){
-    return encoder.getPosition();
+  public double getVelocity(){
+    return encoder.getVelocity();
   }
   // PID Functions
   public double getPID(double setpoint){
-    return MathUtil.clamp(pid.calculate(getEncoder(), setpoint) + SHOOTER_PID_KF, -1, 1);
+    return MathUtil.clamp(pid.calculate(getVelocity(), setpoint) + SHOOTER_PID_KF, -1, 1);
   }
   public boolean PIDatSetpoint(){
     return pid.atSetpoint();
@@ -85,6 +86,7 @@ public class Shooter extends SubsystemBase {
     }
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    SmartDashboard.putNumber("Shooter Encoder", getVelocity());
+    SmartDashboard.putBoolean("Shooter IR", getIR());
   }
 }

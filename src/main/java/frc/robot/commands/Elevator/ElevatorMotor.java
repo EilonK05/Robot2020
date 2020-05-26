@@ -29,8 +29,10 @@ public class ElevatorMotor extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (elevator.getEncoder() <= 5 || elevator.getEncoder() >= 5){
-      elevator.setMotor(RobotContainer.OperatingJoystick.getRawAxis(2));
+    if(RobotContainer.OperatingJoystick.getRawAxis(5) < -0.5 && elevator.getEncoder() > -140000 && elevator.getPiston()){
+      elevator.setMotor(-0.5);
+    } else if(RobotContainer.OperatingJoystick.getRawAxis(5) > 0.5 && elevator.getEncoder() < -6000){
+      elevator.setMotor(0.5);
     }else{
       elevator.setMotor(0);
     }

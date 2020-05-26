@@ -7,11 +7,13 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.AlternateEncoderType;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ConstantsElevator;
 
@@ -27,7 +29,7 @@ public class Elevator extends SubsystemBase {
   public Elevator() {
     elevatorMotor = new CANSparkMax(ConstantsElevator.ELEVATOR_MOTOR, MotorType.kBrushless);
     elevatorPiston = new Solenoid(ConstantsElevator.ELEVATOR_PISTON);
-    encoder = elevatorMotor.getEncoder();
+    encoder = elevatorMotor.getAlternateEncoder(AlternateEncoderType.kQuadrature, 1);
     encoder.setPositionConversionFactor(1);
   }
   // Motors Functions
@@ -55,6 +57,7 @@ public class Elevator extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    SmartDashboard.putNumber("Elevator Encoder", getEncoder());
+    SmartDashboard.putBoolean("Elevator Piston", getPiston());
   }
 }

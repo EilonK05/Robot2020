@@ -21,5 +21,5 @@ public final class ConstantsShooter {
     public static final int SHOOTER_SPARKMAX_B = 6;
     public static final int SHOOTER_TALON = 7;
 
-    public static final int SHOOTER_IR = 2;
+    public static final int SHOOTER_IR = 0;
 }

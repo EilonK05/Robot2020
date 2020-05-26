@@ -19,5 +19,5 @@ public final class ConstantsElevator {
     
     public static final int ELEVATOR_MOTOR = 8;
 
-    public static final int ELEVATOR_PISTON = 0;
+    public static final int ELEVATOR_PISTON = 4;
 }

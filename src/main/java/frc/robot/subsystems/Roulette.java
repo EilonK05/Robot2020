@@ -9,12 +9,14 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorSensorV3;
 
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ConstantsRoulette;
@@ -27,7 +29,7 @@ public class Roulette extends SubsystemBase {
   ColorMatchResult closestColor;
   public static Roulette roulette;
 
-  TalonSRX rouletteMotor;
+  VictorSPX rouletteMotor;
   ColorSensorV3 colorSensor;
   Solenoid roulettePiston;
 
@@ -36,7 +38,7 @@ public class Roulette extends SubsystemBase {
 
 
    public Roulette() {
-    rouletteMotor = new TalonSRX(ConstantsRoulette.ROULETTE_MOTOR);
+    rouletteMotor = new VictorSPX(ConstantsRoulette.ROULETTE_MOTOR);
     colorSensor = new ColorSensorV3(I2C.Port.kOnboard);
     roulettePiston = new Solenoid(ConstantsRoulette.ROULETTE_PISTON);
 
@@ -47,11 +49,16 @@ public class Roulette extends SubsystemBase {
     roulleteColorMatch.addColorMatch(ConstantsRoulette.Blue);
     roulleteColorMatch.addColorMatch(ConstantsRoulette.Yellow);
   }
-  
-  
   // Motors Functions
   public void setMotor(double power){
     rouletteMotor.set(ControlMode.PercentOutput, power);
+  }
+  // Piston Functions
+  public void setPiston(boolean state){
+    roulettePiston.set(state);
+  }
+  public boolean getPiston(){
+    return roulettePiston.get();
   }
   // Color Functions
   public Color getColor(){
@@ -65,6 +72,7 @@ public class Roulette extends SubsystemBase {
     }
     return roulette;
   }
+  
   @Override
   public void periodic() {
     closestColor = roulleteColorMatch.matchClosestColor(getColor());

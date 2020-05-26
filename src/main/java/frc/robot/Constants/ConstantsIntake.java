@@ -19,7 +19,7 @@ public final class ConstantsIntake {
 
     public static final int INTAKE_MOTOR = 12;
 
-    public static final int INTAKE_PISTON_A = 2;
-    public static final int INTAKE_PISTON_B = 3;
+    public static final int INTAKE_PISTON_A = 7;
+    public static final int INTAKE_PISTON_B = 5;
 
 }

@@ -13,12 +13,17 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.Conveyance.ConveyanceCommand;
 import frc.robot.commands.Elevator.ElevatorPiston;
 import frc.robot.commands.Intake.IntakeMotor;
 import frc.robot.commands.Intake.IntakePiston;
+import frc.robot.commands.Roulette.RouletteMotor;
+import frc.robot.commands.Roulette.RoulettePiston;
 import frc.robot.commands.Shooter.ShooterPID;
 import frc.robot.commands.Shooter.ShooterTransfer;
+import frc.robot.commands.Triggers.LTrigger;
+import frc.robot.commands.Triggers.RTrigger;
 
 /*
 import frc.robot.commands.Roulette.roundTwoRoulettePID;
@@ -46,6 +51,8 @@ public class RobotContainer {
   private JoystickButton rbButton = new JoystickButton(OperatingJoystick, 6);
   private POVButton POVUp = new POVButton(OperatingJoystick, 0);
   private POVButton POVRight = new POVButton(OperatingJoystick, 90);
+  private Trigger LTrigger = new LTrigger();
+  private Trigger RTrigger = new RTrigger();
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -67,8 +74,10 @@ public class RobotContainer {
     yButton.whileHeld(new IntakeMotor(-0.5));
     lbButton.whenPressed(new IntakePiston());
     rbButton.whenPressed(new ElevatorPiston());
-    POVUp.whileActiveContinuous(new ShooterPID(1, 1));
-    POVRight.whileActiveContinuous(new ShooterTransfer());
+    LTrigger.whileActiveContinuous(new ShooterPID(1, 1));
+    RTrigger.whileActiveContinuous(new ShooterTransfer());
+    POVUp.whenPressed(new RoulettePiston());
+    POVRight.whileActiveContinuous(new RouletteMotor());
   }
 
   /**

@@ -13,15 +13,20 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-
+import frc.robot.commands.Balance.BalanceCommand;
 import frc.robot.commands.Chassis.MAPath;
 import frc.robot.commands.Chassis.tankDrive;
-
+import frc.robot.commands.Elevator.ElevatorMotor;
+import frc.robot.subsystems.Balance;
 import frc.robot.subsystems.Chassis;
+import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.Roulette;
 
 public class Robot extends TimedRobot {
 
   private tankDrive tankDrive = new tankDrive();
+  private BalanceCommand balance = new BalanceCommand();
+  private ElevatorMotor elevator = new ElevatorMotor();
 
   private Command m_autonomousCommand;
   public static double x;
@@ -39,12 +44,13 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     MAPath.pathnum = 0;
     m_robotContainer = new RobotContainer();
+    Roulette.getinstance();
+    Balance.getinstance();
 
   }
 
   @Override
   public void robotPeriodic() {
-
     CommandScheduler.getInstance().run();
     NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
     NetworkTableEntry tx = table.getEntry("tx");
@@ -107,6 +113,8 @@ public class Robot extends TimedRobot {
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").setNumber(0);
     CommandScheduler.getInstance().setDefaultCommand(Chassis.getinstance(), tankDrive);
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").setNumber(0);
+    CommandScheduler.getInstance().setDefaultCommand(Balance.getinstance(), balance);
+    CommandScheduler.getInstance().setDefaultCommand(Elevator.getinstance(), elevator);
 
     Chassis.getinstance().setidilmodeBrake();
     if (m_autonomousCommand != null) {
