@@ -52,7 +52,7 @@ public class IntakeAutomation extends CommandBase {
       ShooterTransfer.execute();
     }
     if(Shooter.getinstance().getIR()){
-      ShooterTransfer.end(false);
+      ShooterTransfer.end(true);
       ConveyanceCommand.end(false);
     }
     
