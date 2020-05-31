@@ -35,7 +35,6 @@ public class ShooterPID extends CommandBase {
   @Override
   public void execute() {
     shotter.setShooterMotor(-0.5);
-    shotter.setTransferMotor(0);
   }
 
   // Called once the command ends or is interrupted.

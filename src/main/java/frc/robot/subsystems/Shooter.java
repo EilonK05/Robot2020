@@ -27,7 +27,6 @@ public class Shooter extends SubsystemBase {
   public static Shooter shooter; 
   CANSparkMax shooterSparkMaxA;
   CANSparkMax shooterSparkMaxB;
-  TalonSRX shooterTalon;
   CANEncoder encoder;
   DigitalInput IR;
   PIDController pid;
@@ -42,8 +41,6 @@ public class Shooter extends SubsystemBase {
     shooterSparkMaxB = new CANSparkMax(ConstantsShooter.SHOOTER_SPARKMAX_B, MotorType.kBrushless);
     shooterSparkMaxB.follow(shooterSparkMaxA);
 
-    shooterTalon = new TalonSRX(ConstantsShooter.SHOOTER_TALON);
-
     encoder = shooterSparkMaxA.getEncoder();
     encoder.setPositionConversionFactor(1);
 
@@ -55,12 +52,6 @@ public class Shooter extends SubsystemBase {
   // Motor Functions
   public void setShooterMotor(double power){
    shooterSparkMaxA.set(power); 
-  }
-  public void setTransferMotor(double power){
-    shooterTalon.set(ControlMode.PercentOutput, power);
-  }
-  public double getVoltage(){
-    return shooterTalon.getStatorCurrent();
   }
   // IR Functions
   public boolean getIR(){

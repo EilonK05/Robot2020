@@ -21,7 +21,7 @@ import frc.robot.commands.Intake.IntakePiston;
 import frc.robot.commands.Roulette.RouletteMotor;
 import frc.robot.commands.Roulette.RoulettePiston;
 import frc.robot.commands.Shooter.ShooterPID;
-import frc.robot.commands.Shooter.ShooterTransfer;
+import frc.robot.commands.Shooter.ShooterTransferCommand;
 import frc.robot.commands.Triggers.LTrigger;
 import frc.robot.commands.Triggers.RTrigger;
 
@@ -75,7 +75,7 @@ public class RobotContainer {
     lbButton.whenPressed(new IntakePiston());
     rbButton.whenPressed(new ElevatorPiston());
     LTrigger.whileActiveContinuous(new ShooterPID(1, 1));
-    RTrigger.whileActiveContinuous(new ShooterTransfer());
+    RTrigger.whileActiveContinuous(new ShooterTransferCommand());
     POVUp.whenPressed(new RoulettePiston());
     POVRight.whileActiveContinuous(new RouletteMotor());
   }
