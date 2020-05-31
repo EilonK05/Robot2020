@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.commands.Conveyance.ConveyanceCommand;
 import frc.robot.commands.Intake.IntakeMotor;
 import frc.robot.commands.Intake.IntakePiston;
-import frc.robot.commands.Shooter.ShooterTransfer;
+import frc.robot.commands.Shooter.ShooterTransferCommand;
 import frc.robot.subsystems.Automation;
 import frc.robot.subsystems.Conveyance;
 import frc.robot.subsystems.Shooter;
@@ -29,7 +29,7 @@ public class IntakeAutomation extends CommandBase {
     IntakePiston = new IntakePiston();
     IntakeMotor = new IntakeMotor(0.5);
     ConveyanceCommand = new ConveyanceCommand(0.5);
-    ShooterTransfer = new ShooterTransfer();
+    ShooterTransfer = new ShooterTransferCommand();
   }
 
   // Called when the command is initially scheduled.
