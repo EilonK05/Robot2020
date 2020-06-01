@@ -26,16 +26,13 @@ public class ShootingAutomation extends CommandBase {
     addRequirements(automation);
 
     ShooterTransferCommand = new ShooterTransferCommand();
-    ShooterPID = new ShooterPID();
+    ShooterPID = new ShooterPID(0);
     ConveyanceCommand = new ConveyanceCommand(1.5);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    ShooterTransferCommand.initialize();
-    ShooterPID.initialize();
-    ConveyanceCommand.initialize();
   }
 
   // Called every time the scheduler runs while the command is scheduled.

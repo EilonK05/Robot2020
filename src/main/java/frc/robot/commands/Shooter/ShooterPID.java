@@ -15,20 +15,25 @@ public class ShooterPID extends CommandBase {
    * Creates a new ShooterPID.
    */
   private Shooter shotter;
-  public ShooterPID() {
+  private double setpoint;
+  public ShooterPID(double setpoint) {
     shotter = Shooter.getinstance();
     addRequirements(shotter);
+    this.setpoint = setpoint;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    shotter.setSetpoint(2000);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shotter.setShooterMotor(-0.5);
+    double power = shotter.getPID();
+    shotter.setShooterMotor(power);
+    System.out.println(power);
   }
 
   // Called once the command ends or is interrupted.

@@ -7,8 +7,6 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -24,7 +22,7 @@ public class Shooter extends SubsystemBase {
   /**
    * Creates a new Shooter.
    */
-  public static Shooter shooter; 
+  public static Shooter shooter;
   CANSparkMax shooterSparkMaxA;
   CANSparkMax shooterSparkMaxB;
   CANEncoder encoder;
@@ -32,10 +30,9 @@ public class Shooter extends SubsystemBase {
   PIDController pid;
 
   // PID
-  final double SHOOTER_PID_KP = 1;
-  final double SHOOTER_PID_KI = 1;
-  final double SHOOTER_PID_KD = 1;
-  final double SHOOTER_PID_KF = 1;
+  final double SHOOTER_PID_KP = 0.0006;
+  final double SHOOTER_PID_KI = 0.0002;
+  final double SHOOTER_PID_KD = 0;
   public Shooter() {
     shooterSparkMaxA = new CANSparkMax(ConstantsShooter.SHOOTER_SPARKMAX_A, MotorType.kBrushless);
     shooterSparkMaxB = new CANSparkMax(ConstantsShooter.SHOOTER_SPARKMAX_B, MotorType.kBrushless);
@@ -47,11 +44,11 @@ public class Shooter extends SubsystemBase {
     IR = new DigitalInput(ConstantsShooter.SHOOTER_IR);
 
     pid = new PIDController(SHOOTER_PID_KP, SHOOTER_PID_KI, SHOOTER_PID_KD);
-    pid.setTolerance(10);
+    pid.setTolerance(70);
   }
   // Motor Functions
   public void setShooterMotor(double power){
-   shooterSparkMaxA.set(power); 
+   shooterSparkMaxA.setVoltage(power); 
   }
   // IR Functions
   public boolean getIR(){
@@ -62,11 +59,15 @@ public class Shooter extends SubsystemBase {
     return encoder.getVelocity();
   }
   // PID Functions
-  public double getPID(double setpoint){
-    return MathUtil.clamp(pid.calculate(getVelocity(), setpoint) + SHOOTER_PID_KF, -1, 1);
+  public double getPID(){
+    double SHOOTER_PID_KF = (12 * pid.getSetpoint()) / 5700;
+    return MathUtil.clamp(pid.calculate(getVelocity()) + SHOOTER_PID_KF, 0, 12);
   }
   public boolean PIDatSetpoint(){
     return pid.atSetpoint();
+  }
+  public void setSetpoint(double setpoint){
+    pid.setSetpoint(setpoint);
   }
   // Singletone
   public static Shooter getinstance(){
@@ -79,5 +80,9 @@ public class Shooter extends SubsystemBase {
   public void periodic() {
     SmartDashboard.putNumber("Shooter Encoder", getVelocity());
     SmartDashboard.putBoolean("Shooter IR", getIR());
+    SmartDashboard.putNumber("Shooter PID Setpoint", pid.getSetpoint());
+    SmartDashboard.putNumber("Shooter PID P", pid.getPositionError());
+    SmartDashboard.putNumber("Shooter Motor Output", shooterSparkMaxA.get());
+    SmartDashboard.putBoolean("Shooter PID At Setpoint", PIDatSetpoint());
   }
 }

@@ -78,7 +78,7 @@ public class RobotContainer {
     yButton.whileHeld(new IntakeMotor(-0.5));
     lbButton.whenPressed(new IntakePiston());
     rbButton.whenPressed(new ElevatorPiston());
-    LTrigger.whileActiveContinuous(new ShooterPID());
+    LTrigger.whileActiveContinuous(new ShooterPID(3000));
     RTrigger.whileActiveContinuous(new ShooterTransferCommand());
     POVUp.whenPressed(new RoulettePiston());
     POVRight.whileActiveContinuous(new RouletteMotor());

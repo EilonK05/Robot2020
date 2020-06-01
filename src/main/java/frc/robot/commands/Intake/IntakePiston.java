@@ -19,6 +19,7 @@ public class IntakePiston extends InstantCommand {
   public IntakePiston() {
     intake = Intake.getinstance();
     addRequirements(intake);
+
   }
 
   // Called when the command is initially scheduled.

@@ -13,7 +13,6 @@ import frc.robot.commands.Intake.IntakeMotor;
 import frc.robot.commands.Intake.IntakePiston;
 import frc.robot.commands.Shooter.ShooterTransferCommand;
 import frc.robot.subsystems.Automation;
-import frc.robot.subsystems.Conveyance;
 import frc.robot.subsystems.Shooter;
 
 public class IntakeAutomation extends CommandBase {
@@ -35,22 +34,14 @@ public class IntakeAutomation extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    IntakeMotor.initialize();
-    ConveyanceCommand.initialize();
-    ShooterTransfer.initialize();
+    IntakePiston.initialize();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    IntakePiston.initialize();
-    IntakePiston.schedule(false);
     IntakeMotor.execute();
     ConveyanceCommand.execute();
-    if(Conveyance.getinstance().getVoltage() > 5){
-      IntakeMotor.end(true);
-      ShooterTransfer.execute();
-    }
     if(Shooter.getinstance().getIR()){
       ShooterTransfer.end(true);
       ConveyanceCommand.end(false);
@@ -62,8 +53,6 @@ public class IntakeAutomation extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     IntakeMotor.end(true);
-    ConveyanceCommand.end(true);
-    ShooterTransfer.end(true);
   }
 
   // Returns true when the command should end.
