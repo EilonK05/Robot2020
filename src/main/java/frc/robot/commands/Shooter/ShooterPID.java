@@ -7,7 +7,6 @@
 
 package frc.robot.commands.Shooter;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Shooter;
 
@@ -16,14 +15,9 @@ public class ShooterPID extends CommandBase {
    * Creates a new ShooterPID.
    */
   private Shooter shotter;
-  private double setpoint;
-  private double waitTime;
-  private double lastTimeOnTarget;
-  public ShooterPID(double setpoint, double waitTime) {
+  public ShooterPID() {
     shotter = Shooter.getinstance();
     addRequirements(shotter);
-    this.setpoint = setpoint;
-    this.waitTime = waitTime;
   }
 
   // Called when the command is initially scheduled.
