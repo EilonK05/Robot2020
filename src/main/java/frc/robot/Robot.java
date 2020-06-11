@@ -75,7 +75,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
-    Chassis.getinstance().setidilmodeCoset();
+    Chassis.getinstance().setidilmodeBrake();
     CommandScheduler.getInstance().cancelAll();
   }
 
@@ -89,7 +89,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-
     MAPath.pathnum = 0;
     Chassis.getinstance().resetValue();
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
@@ -109,19 +108,19 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-
+    
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").setNumber(0);
     CommandScheduler.getInstance().setDefaultCommand(Chassis.getinstance(), tankDrive);
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").setNumber(0);
     CommandScheduler.getInstance().setDefaultCommand(Balance.getinstance(), balance);
     CommandScheduler.getInstance().setDefaultCommand(Elevator.getinstance(), elevator);
 
-    Chassis.getinstance().setidilmodeBrake();
+    Chassis.getinstance().setidilmodeCoset();
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
     Chassis.getinstance().resetValue();
-    Chassis.getinstance().rampRate(0);
+    Chassis.getinstance().rampRate(0.35);
 
   }
 

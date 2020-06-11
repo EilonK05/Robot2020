@@ -21,41 +21,40 @@ import frc.robot.Robot;
 import frc.robot.Constants.ConstantsChassis;
 import frc.robot.Path.Path;
 import frc.robot.commands.Chassis.MAPath;
-
 /**
  * An example subsystem. You can replace me with your own Subsystem.
  */
 public class Chassis extends SubsystemBase {
   private static final double kLimelight3D = 25.625 * 2.54; // TODO
 
-  private static final double KP_MApath_distance = 40e-6;
+  private static final double KP_MApath_distance = 4e-5;
   private static final double KI_MApath_distance = 0;
-  private static final double KD_MApath_distance = 20e-7;
+  private static final double KD_MApath_distance = 4e-6;
 
-  private static final double KP_MApath_angle = 1e-2;
+  private static final double KP_MApath_angle = 2e-2;
   private static final double KI_MApath_angle = 0;
-  private static final double KD_MApath_angle = 1e-3;
+  private static final double KD_MApath_angle = 5e-4;
 
-  private static final double KP_Vision_angle = 2.5e-2;
-  private static final double KI_Vision_angle = 8e-4;
-  private static final double KD_Vision_angle = 1e-3;
+  private static final double KP_Vision_angle = 0;
+  private static final double KI_Vision_angle = 0;
+  private static final double KD_Vision_angle = 0;
 
-  private static final double KP_Vision_distance = 1.6e-2;
+  private static final double KP_Vision_distance = 0;
   private static final double KI_Vision_distance = 0;
   private static final double KD_Vision_distance = 0;
 
-  private static final double KP_right_velocity_control = 1.2e-3;
+  private static final double KP_right_velocity_control = 0;
   private static final double KI_right_velocity_control = 0;
   private static final double KD_right_velocity_control = 0;
 
-  private static final double KP_left_velocity_control = 1.2e-3;
+  private static final double KP_left_velocity_control = 0;
   private static final double KI_left_velocity_control = 0;
   private static final double KD_left_velocity_control = 0;
   
   private static final double anglePIDVisionSetInputRange = 44.5;
   private static final double anglePidMApathSetInputRange = 180;
 
-  public static double ticksPerMeter = 22000; // the number of ticks per meter //TODO
+  public static double ticksPerMeter = 25000; // the number of ticks per meter //TODO
   public static double RPM = 5700;
   private double angle;
   private double sign;

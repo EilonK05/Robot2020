@@ -27,23 +27,25 @@ public class ShootingAutomation extends CommandBase {
 
     ShooterTransferCommand = new ShooterTransferCommand();
     ShooterPID = new ShooterPID(0);
-    ConveyanceCommand = new ConveyanceCommand(1.5);
+    ConveyanceCommand = new ConveyanceCommand(0.5);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    ShooterPID.initialize();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(Shooter.getinstance().getVelocity() > 5 && ShooterTransfer.getinstance().getVoltage() > 5){
+    ShooterPID.execute();
+    if(Shooter.getinstance().PIDatSetpoint()) {
       ShooterTransferCommand.execute();
       ConveyanceCommand.execute();
-      
     }else{
-      ShooterTransferCommand.execute();
+      ConveyanceCommand.end(true);
+      ShooterTransferCommand.end(true);
     }
   }
 
@@ -52,6 +54,7 @@ public class ShootingAutomation extends CommandBase {
   public void end(boolean interrupted) {
     ShooterPID.end(true);
     ShooterTransferCommand.end(true);
+    ConveyanceCommand.end(true);
   }
 
   // Returns true when the command should end.

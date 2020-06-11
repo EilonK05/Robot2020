@@ -37,6 +37,7 @@ public class Shooter extends SubsystemBase {
     shooterSparkMaxA = new CANSparkMax(ConstantsShooter.SHOOTER_SPARKMAX_A, MotorType.kBrushless);
     shooterSparkMaxB = new CANSparkMax(ConstantsShooter.SHOOTER_SPARKMAX_B, MotorType.kBrushless);
     shooterSparkMaxB.follow(shooterSparkMaxA);
+    shooterSparkMaxA.setInverted(true);
 
     encoder = shooterSparkMaxA.getEncoder();
     encoder.setPositionConversionFactor(1);
@@ -65,6 +66,9 @@ public class Shooter extends SubsystemBase {
   }
   public boolean PIDatSetpoint(){
     return pid.atSetpoint();
+  }
+  public void resetPID(){
+    pid.reset();
   }
   public void setSetpoint(double setpoint){
     pid.setSetpoint(setpoint);
