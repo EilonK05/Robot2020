@@ -31,15 +31,15 @@ public class Chassis extends SubsystemBase {
   private static final double KI_MApath_distance = 0;
   private static final double KD_MApath_distance = 4e-6;
 
-  private static final double KP_MApath_angle = 2e-2;
+  private static final double KP_MApath_angle = 1e-2;
   private static final double KI_MApath_angle = 0;
-  private static final double KD_MApath_angle = 5e-4;
+  private static final double KD_MApath_angle = 3.6e-4;
 
   private static final double KP_Vision_angle = 0;
   private static final double KI_Vision_angle = 0;
   private static final double KD_Vision_angle = 0;
 
-  private static final double KP_Vision_distance = 0;
+  private static final double KP_Vision_distance = 2.5e-2;
   private static final double KI_Vision_distance = 0;
   private static final double KD_Vision_distance = 0;
 

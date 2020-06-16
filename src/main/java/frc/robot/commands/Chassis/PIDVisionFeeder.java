@@ -25,13 +25,15 @@ public class PIDVisionFeeder extends CommandBase {
 
     chassis = Chassis.getinstance();
     addRequirements(chassis);
+   
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    System.out.print("dab");
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").setNumber(0);
-    NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(1);
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(2);
     chassis.rampRate(0);
     chassis.setidilmodeBrake();
   }
@@ -39,11 +41,10 @@ public class PIDVisionFeeder extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
-    double angel = chassis.anglePIDVisionOutput(0);
-    double distacne = chassis.distancePIDVisionOutput(66);
+    double angle = 0;//chassis.anglePIDVisionOutput(0);
+    double distance = chassis.distancePIDVisionOutput(66);
     if(Robot.tshort > 2){
-      chassis.ArcadeDrive(angel, distacne);
+      chassis.ArcadeDrive(angle, distance);
     }else{
       chassis.tankDrive(0, 0);
     }
