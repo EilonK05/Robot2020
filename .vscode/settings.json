@@ -11,6 +11,5 @@
     "**/.project": true,
     "**/.settings": true,
     "**/.factorypath": true
-  },
-  "wpilib.stopSimulationOnEntry": false
+  }
 }

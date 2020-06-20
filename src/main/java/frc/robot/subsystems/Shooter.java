@@ -7,49 +7,40 @@
 
 package frc.robot.subsystems;
 
-import com.revrobotics.CANEncoder;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpiutil.math.MathUtil;
-import frc.robot.Constants.ConstantsShooter;
+import frc.robot.utils.MAMotorControler;
+import frc.robot.utils.MAPidController;
+import frc.robot.utils.RobotConstants;
 
 public class Shooter extends SubsystemBase {
   /**
    * Creates a new Shooter.
    */
   public static Shooter shooter;
-  CANSparkMax shooterSparkMaxA;
-  CANSparkMax shooterSparkMaxB;
-  CANEncoder encoder;
+  MAMotorControler shooterSparkMaxA;
+  MAMotorControler shooterSparkMaxB;
   DigitalInput IR;
-  PIDController pid;
+  MAPidController pid;
 
   // PID
   final double SHOOTER_PID_KP = 0.0006;
   final double SHOOTER_PID_KI = 0.0002;
   final double SHOOTER_PID_KD = 0;
+  double SHOOTER_PID_KF;
   public Shooter() {
-    shooterSparkMaxA = new CANSparkMax(ConstantsShooter.SHOOTER_SPARKMAX_A, MotorType.kBrushless);
-    shooterSparkMaxB = new CANSparkMax(ConstantsShooter.SHOOTER_SPARKMAX_B, MotorType.kBrushless);
-    shooterSparkMaxB.follow(shooterSparkMaxA);
-    shooterSparkMaxA.setInverted(true);
+    shooterSparkMaxA = new MAMotorControler(RobotConstants.SPARK_MAX, RobotConstants.m_ID5, RobotConstants.Encoder, null, 60, true, 0);
+    shooterSparkMaxB = new MAMotorControler(RobotConstants.SPARK_MAX, RobotConstants.m_ID6, 60, false, 0);
+    shooterSparkMaxB.followSparkMax(shooterSparkMaxA);
 
-    encoder = shooterSparkMaxA.getEncoder();
-    encoder.setPositionConversionFactor(1);
+    IR = new DigitalInput(RobotConstants.DIO_ID0);
 
-    IR = new DigitalInput(ConstantsShooter.SHOOTER_IR);
-
-    pid = new PIDController(SHOOTER_PID_KP, SHOOTER_PID_KI, SHOOTER_PID_KD);
-    pid.setTolerance(70);
+    pid = new MAPidController(SHOOTER_PID_KP, SHOOTER_PID_KI, SHOOTER_PID_KD,SHOOTER_PID_KF , 70, -1, 1);
   }
   // Motor Functions
   public void setShooterMotor(double power){
-   shooterSparkMaxA.setVoltage(power); 
+   shooterSparkMaxA.setvoltage(power); 
   }
   // IR Functions
   public boolean getIR(){
@@ -57,15 +48,15 @@ public class Shooter extends SubsystemBase {
   }
   // Encoder Functions
   public double getVelocity(){
-    return encoder.getVelocity();
+    return shooterSparkMaxA.getVelocity();
   }
   // PID Functions
   public double getPID(){
-    double SHOOTER_PID_KF = (12 * pid.getSetpoint()) / 5700;
-    return MathUtil.clamp(pid.calculate(getVelocity()) + SHOOTER_PID_KF, 0, 12);
+    SHOOTER_PID_KF = (12 * pid.getSetpoint()) / 5700;
+    return pid.calculate(SHOOTER_PID_KF); 
   }
   public boolean PIDatSetpoint(){
-    return pid.atSetpoint();
+    return pid.atSetpoint(0.1);
   }
   public void resetPID(){
     pid.reset();
@@ -86,7 +77,7 @@ public class Shooter extends SubsystemBase {
     SmartDashboard.putBoolean("Shooter IR", getIR());
     SmartDashboard.putNumber("Shooter PID Setpoint", pid.getSetpoint());
     SmartDashboard.putNumber("Shooter PID P", pid.getPositionError());
-    SmartDashboard.putNumber("Shooter Motor Output", shooterSparkMaxA.get());
+    SmartDashboard.putNumber("Shooter Motor Output", shooterSparkMaxA.getOutput());
     SmartDashboard.putBoolean("Shooter PID At Setpoint", PIDatSetpoint());
   }
 }

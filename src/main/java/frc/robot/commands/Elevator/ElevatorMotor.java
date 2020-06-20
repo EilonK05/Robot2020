@@ -10,6 +10,7 @@ package frc.robot.commands.Elevator;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.Elevator;
+import frc.robot.utils.RobotConstants;
 
 public class ElevatorMotor extends CommandBase {
   /**
@@ -29,9 +30,9 @@ public class ElevatorMotor extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(RobotContainer.OperatingJoystick.getRawAxis(5) < -0.5 && elevator.getEncoder() > -140000 && elevator.getPiston()){
+    if(RobotContainer.OperatingJoystick.getRawAxis(RobotConstants.STICK_RIGHT_Yaxis) < -0.5 && elevator.getEncoder() > -140000 && elevator.getPiston()){
       elevator.setMotor(-0.5);
-    } else if(RobotContainer.OperatingJoystick.getRawAxis(5) > 0.5 && elevator.getEncoder() < -6000){
+    } else if(RobotContainer.OperatingJoystick.getRawAxis(RobotConstants.STICK_RIGHT_Yaxis) > 0.5 && elevator.getEncoder() < -6000){
       elevator.setMotor(0.5);
     }else{
       elevator.setMotor(0);

@@ -7,20 +7,18 @@
 
 package frc.robot.subsystems;
 
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.ConstatnsBalance;
+import frc.robot.utils.MAMotorControler;
+import frc.robot.utils.RobotConstants;
 
 public class Balance extends SubsystemBase {
   /**
    * Creates a new Balance.
    */
   public static Balance balance;
-  CANSparkMax balanceMotor;
+  MAMotorControler balanceMotor;
   public Balance() {
-    balanceMotor = new CANSparkMax(ConstatnsBalance.BALANCE_MOTOR, MotorType.kBrushless);
+    balanceMotor = new MAMotorControler(RobotConstants.SPARK_MAX, RobotConstants.m_ID9, 60, false, 0);
   }
 
   public void setMotor(double power){

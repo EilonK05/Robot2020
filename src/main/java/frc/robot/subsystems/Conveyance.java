@@ -7,11 +7,9 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.ConstantsConveyance;
+import frc.robot.utils.MAMotorControler;
+import frc.robot.utils.RobotConstants;
 
 public class Conveyance extends SubsystemBase {
   /**
@@ -19,13 +17,13 @@ public class Conveyance extends SubsystemBase {
    */
   public static Conveyance conveyance;
 
-  TalonSRX conveyanceMotor;
+  MAMotorControler conveyanceMotor;
   public Conveyance() {
-    conveyanceMotor = new TalonSRX(ConstantsConveyance.CONVEYANCE_MOTOR);
+    conveyanceMotor = new MAMotorControler(RobotConstants.VICTOR, RobotConstants.m_ID11, 60, false, 0);
   }
 
   public void setMotor(double power){
-    conveyanceMotor.set(ControlMode.PercentOutput, power);
+    conveyanceMotor.set(power);
   }
   public double getVoltage(){
     return conveyanceMotor.getStatorCurrent();

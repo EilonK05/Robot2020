@@ -7,13 +7,11 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.*;
+import frc.robot.utils.MAMotorControler;
+import frc.robot.utils.RobotConstants;
 
 public class Intake extends SubsystemBase {
   /**
@@ -21,11 +19,11 @@ public class Intake extends SubsystemBase {
    */
   public static Intake intake;
   
-  WPI_VictorSPX intakeMotor;
+  MAMotorControler intakeMotor;
   public DoubleSolenoid intakePiston;
   public Intake() {
-    intakeMotor = new WPI_VictorSPX(ConstantsIntake.INTAKE_MOTOR);
-    intakePiston = new DoubleSolenoid(ConstantsIntake.INTAKE_PISTON_A, ConstantsIntake.INTAKE_PISTON_B);
+    intakeMotor = new MAMotorControler(RobotConstants.VICTOR, RobotConstants.m_ID12, 60, false, 60);
+    intakePiston = new DoubleSolenoid(RobotConstants.p_ID2, RobotConstants.p_ID3);
   }
   // Piston Functions
   public void setForward(){
@@ -36,7 +34,7 @@ public class Intake extends SubsystemBase {
   }
   // Motor Functions
   public void setMotor(double power){
-    intakeMotor.set(ControlMode.PercentOutput, power);
+    intakeMotor.set(power);
   }
   // Singletone
   public static Intake getinstance(){

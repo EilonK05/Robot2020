@@ -10,6 +10,7 @@ package frc.robot.commands.Balance;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.Balance;
+import frc.robot.utils.RobotConstants;
 
 public class BalanceCommand extends CommandBase {
   /**
@@ -30,7 +31,7 @@ public class BalanceCommand extends CommandBase {
   @Override
   public void execute() {
     if(RobotContainer.OperatingJoystick.getRawAxis(0) > 0.15 || RobotContainer.OperatingJoystick.getRawAxis(0) < 0.15){
-      balance.setMotor(RobotContainer.OperatingJoystick.getRawAxis(0));
+      balance.setMotor(RobotContainer.OperatingJoystick.getRawAxis(RobotConstants.STICK_LEFT_Xaxis));
     }else{
       balance.setMotor(0);
     }

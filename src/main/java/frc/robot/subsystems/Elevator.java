@@ -7,30 +7,23 @@
 
 package frc.robot.subsystems;
 
-import com.revrobotics.AlternateEncoderType;
-import com.revrobotics.CANEncoder;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.ConstantsElevator;
+import frc.robot.utils.MAMotorControler;
+import frc.robot.utils.RobotConstants;
 
 public class Elevator extends SubsystemBase {
   /**
    * Creates a new Elevator.
    */
-  CANSparkMax elevatorMotor;
-  CANEncoder encoder;
+  MAMotorControler elevatorMotor;
   Solenoid elevatorPiston;
   public static Elevator elevator;
   
   public Elevator() {
-    elevatorMotor = new CANSparkMax(ConstantsElevator.ELEVATOR_MOTOR, MotorType.kBrushless);
-    elevatorPiston = new Solenoid(ConstantsElevator.ELEVATOR_PISTON);
-    encoder = elevatorMotor.getAlternateEncoder(AlternateEncoderType.kQuadrature, 1);
-    encoder.setPositionConversionFactor(1);
+    elevatorMotor = new MAMotorControler(RobotConstants.SPARK_MAX, RobotConstants.m_ID8, RobotConstants.Alternate_Encoder, null, 60, false, 0);
+    elevatorPiston = new Solenoid(RobotConstants.p_ID4);
   }
   // Motors Functions
   public void setMotor(double power){
@@ -45,7 +38,7 @@ public class Elevator extends SubsystemBase {
   }
   // Encoder Function
   public double getEncoder(){
-    return encoder.getPosition();
+    return elevatorMotor.getPosition();
   }
   // Singletone
   public static Elevator getinstance(){

@@ -7,24 +7,22 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.ConstantsShooter;
+import frc.robot.utils.MAMotorControler;
+import frc.robot.utils.RobotConstants;
 
 public class ShooterTransfer extends SubsystemBase {
   /**
    * Creates a new ShooterTransfer.
    */
   public static ShooterTransfer shooterTransfer;
-  TalonSRX transferMotor;
+  MAMotorControler transferMotor;
   public ShooterTransfer() {
-    transferMotor = new TalonSRX(ConstantsShooter.SHOOTER_TALON);
+    transferMotor = new MAMotorControler(RobotConstants.TALON, RobotConstants.m_ID7, 60, false, 0);
   }
   // Motors Functions
   public void setTransferMotor(double power){
-    transferMotor.set(ControlMode.PercentOutput, power);
+    transferMotor.set(power);
   }
   public double getVoltage(){
     return transferMotor.getStatorCurrent();
