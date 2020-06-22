@@ -17,9 +17,9 @@ public class Elevator extends SubsystemBase {
   /**
    * Creates a new Elevator.
    */
-  MAMotorControler elevatorMotor;
-  Solenoid elevatorPiston;
-  public static Elevator elevator;
+  private MAMotorControler elevatorMotor;
+  private Solenoid elevatorPiston;
+  private static Elevator elevator;
   
   public Elevator() {
     elevatorMotor = new MAMotorControler(RobotConstants.SPARK_MAX, RobotConstants.m_ID8, RobotConstants.Alternate_Encoder, null, 60, false, 0);
@@ -41,7 +41,7 @@ public class Elevator extends SubsystemBase {
     return elevatorMotor.getPosition();
   }
   // Singletone
-  public static Elevator getinstance(){
+  public static Elevator getInstance(){
     if (elevator == null){
       elevator = new Elevator();
     }

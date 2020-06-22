@@ -17,7 +17,7 @@ public class ConveyanceCommand extends CommandBase {
   private double power;
   public Conveyance conveyance;
   public ConveyanceCommand(double power) {
-    conveyance = Conveyance.getinstance();
+    conveyance = Conveyance.getInstance();
     addRequirements(conveyance);
     this.power = power;
 

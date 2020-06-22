@@ -15,8 +15,9 @@ public class ShooterTransfer extends SubsystemBase {
   /**
    * Creates a new ShooterTransfer.
    */
-  public static ShooterTransfer shooterTransfer;
-  MAMotorControler transferMotor;
+  private static ShooterTransfer shooterTransfer;
+  private MAMotorControler transferMotor;
+  
   public ShooterTransfer() {
     transferMotor = new MAMotorControler(RobotConstants.TALON, RobotConstants.m_ID7, 60, false, 0);
   }
@@ -28,7 +29,7 @@ public class ShooterTransfer extends SubsystemBase {
     return transferMotor.getStatorCurrent();
   }
   // Singletone
-  public static ShooterTransfer getinstance(){
+  public static ShooterTransfer getInstance(){
       if (shooterTransfer == null){
         shooterTransfer = new ShooterTransfer();
       }

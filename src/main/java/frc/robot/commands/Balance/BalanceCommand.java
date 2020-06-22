@@ -18,7 +18,7 @@ public class BalanceCommand extends CommandBase {
    */
   public Balance balance;
    public BalanceCommand() {
-    balance = Balance.getinstance();
+    balance = Balance.getInstance();
     addRequirements(balance);
   }
 

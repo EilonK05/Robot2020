@@ -18,11 +18,11 @@ public class Shooter extends SubsystemBase {
   /**
    * Creates a new Shooter.
    */
-  public static Shooter shooter;
-  MAMotorControler shooterSparkMaxA;
-  MAMotorControler shooterSparkMaxB;
-  DigitalInput IR;
-  MAPidController pid;
+  private static Shooter shooter;
+  private MAMotorControler shooterSparkMaxA;
+  private MAMotorControler shooterSparkMaxB;
+  private DigitalInput IR;
+  private MAPidController pid;
 
   // PID
   final double SHOOTER_PID_KP = 0.0006;
@@ -65,7 +65,7 @@ public class Shooter extends SubsystemBase {
     pid.setSetpoint(setpoint);
   }
   // Singletone
-  public static Shooter getinstance(){
+  public static Shooter getInstance(){
     if (shooter == null){
       shooter = new Shooter();
     }

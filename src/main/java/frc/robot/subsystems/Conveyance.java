@@ -15,7 +15,7 @@ public class Conveyance extends SubsystemBase {
   /**
    * Creates a new Conveyance.
    */
-  public static Conveyance conveyance;
+  private static Conveyance conveyance;
 
   MAMotorControler conveyanceMotor;
   public Conveyance() {
@@ -28,7 +28,7 @@ public class Conveyance extends SubsystemBase {
   public double getVoltage(){
     return conveyanceMotor.getStatorCurrent();
   }
-  public static Conveyance getinstance(){
+  public static Conveyance getInstance(){
     if (conveyance == null){
       conveyance = new Conveyance();
     }

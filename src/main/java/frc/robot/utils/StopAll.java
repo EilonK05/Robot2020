@@ -16,7 +16,7 @@ import frc.robot.subsystems.Automation;
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
 public class StopAll extends InstantCommand {
   public StopAll() {
-    addRequirements(Automation.getinstance());
+    addRequirements(Automation.getInstance());
   }
 
   // Called when the command is initially scheduled.

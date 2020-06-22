@@ -17,7 +17,7 @@ public class ShooterPID extends CommandBase {
   private Shooter shotter;
   private double setpoint;
   public ShooterPID(double setpoint) {
-    shotter = Shooter.getinstance();
+    shotter = Shooter.getInstance();
     addRequirements(shotter);
     this.setpoint = setpoint;
   }

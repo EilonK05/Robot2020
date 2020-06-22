@@ -30,7 +30,7 @@ public class MAPath extends CommandBase {
 
   public MAPath(double waitTime) {
     this.waitTime = waitTime;
-    chassis = Chassis.getinstance();
+    chassis = Chassis.getInstance();
     addRequirements(chassis);
 
   }

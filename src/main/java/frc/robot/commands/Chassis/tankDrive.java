@@ -15,7 +15,7 @@ public class tankDrive extends CommandBase {
   Chassis chassis;
 
   public tankDrive() {
-    chassis = Chassis.getinstance();
+    chassis = Chassis.getInstance();
     addRequirements(chassis);
   }
 

@@ -16,7 +16,7 @@ public class ShooterTransferCommand extends CommandBase {
    */
   private ShooterTransfer shooterTransfer;
   public ShooterTransferCommand() {
-    shooterTransfer = ShooterTransfer.getinstance();
+    shooterTransfer = ShooterTransfer.getInstance();
     addRequirements(shooterTransfer);
   }
 

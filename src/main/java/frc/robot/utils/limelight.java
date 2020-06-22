@@ -103,7 +103,7 @@ public class limelight extends SubsystemBase {
     
   }
 
-  public static limelight getinstance() {
+  public static limelight getInstance() {
     if (limelight == null) {
       limelight = new limelight();
     }

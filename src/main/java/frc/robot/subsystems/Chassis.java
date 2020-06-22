@@ -200,7 +200,7 @@ public class Chassis extends SubsystemBase {
   // pid vison distance
   public double distance() {
     return (-1.3276 * Math.pow(10, 6)
-        / (-2.43018 * Math.pow(limelight.getinstance().y, 2) + -101.265 * limelight.getinstance().y + -1854.19)); // TODO
+        / (-2.43018 * Math.pow(limelight.getInstance().y, 2) + -101.265 * limelight.getInstance().y + -1854.19)); // TODO
 
   }
 
@@ -210,11 +210,11 @@ public class Chassis extends SubsystemBase {
   }
 
   public double anglePIDVisionOutput(double setpoint) {
-    return anglePIDVision.calculate(limelight.getinstance().x * -1, setpoint);
+    return anglePIDVision.calculate(limelight.getInstance().x * -1, setpoint);
   }
 
   public double distancePIDVisionOutput(double setpoint) {
-    return distancePIDVision.calculate(limelight.getinstance().Tshort, setpoint);
+    return distancePIDVision.calculate(limelight.getInstance().Tshort, setpoint);
   }
 
   public void ArcadeDrive(double angel, double distacne) {
@@ -287,7 +287,7 @@ public class Chassis extends SubsystemBase {
     rightFrontMotor.setvoltage(power);
   }
 
-  public static Chassis getinstance() {
+  public static Chassis getInstance() {
     if (chassis == null) {
       chassis = new Chassis();
     }

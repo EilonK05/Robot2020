@@ -52,7 +52,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
-    //Chassis.getinstance().setidilmodeBrake(true);
+    //Chassis.getInstance().setidilmodeBrake(true);
   }
 
   @Override
@@ -66,7 +66,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     //MAPath.pathnum = 0;
-   // Chassis.getinstance().resetValue();
+   // Chassis.getInstance().resetValue();
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     // schedule the autonomous command (example)
@@ -84,8 +84,8 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    //Chassis.getinstance().rampRate(0);
-   // CommandScheduler.getInstance().setDefaultCommand(Chassis.getinstance(), tankDrive);
+    //Chassis.getInstance().rampRate(0);
+   // CommandScheduler.getInstance().setDefaultCommand(Chassis.getInstance(), tankDrive);
     
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();

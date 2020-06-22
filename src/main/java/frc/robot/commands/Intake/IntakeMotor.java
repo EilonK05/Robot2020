@@ -17,7 +17,7 @@ public class IntakeMotor extends CommandBase {
   private double power;
   private Intake intake;
   public IntakeMotor(double power) {
-    intake = Intake.getinstance();
+    intake = Intake.getInstance();
     addRequirements(intake);
     this.power = power;
   }

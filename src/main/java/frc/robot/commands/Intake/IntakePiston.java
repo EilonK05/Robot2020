@@ -15,17 +15,19 @@ import frc.robot.subsystems.Intake;
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
 public class IntakePiston extends InstantCommand {
-  private Intake intake;
-  public IntakePiston() {
-    intake = Intake.getinstance();
-    addRequirements(intake);
 
+  private Intake intake;
+  
+  public IntakePiston() {
+    intake = Intake.getInstance();
+    
+    addRequirements(intake);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if(intake.intakePiston.get() == Value.kForward){
+    if(intake.getPiston() == Value.kForward){
       intake.setReverse();
     }else{
       intake.setForward();

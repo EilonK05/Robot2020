@@ -22,7 +22,7 @@ public class Automation extends SubsystemBase {
 
 
 
-  public static Automation getinstance() {
+  public static Automation getInstance() {
     if (auto == null) {
       auto = new Automation();
     }

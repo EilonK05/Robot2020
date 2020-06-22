@@ -15,8 +15,9 @@ public class Balance extends SubsystemBase {
   /**
    * Creates a new Balance.
    */
-  public static Balance balance;
-  MAMotorControler balanceMotor;
+  private static Balance balance;
+  private MAMotorControler balanceMotor;
+  
   public Balance() {
     balanceMotor = new MAMotorControler(RobotConstants.SPARK_MAX, RobotConstants.m_ID9, 60, false, 0);
   }
@@ -25,7 +26,7 @@ public class Balance extends SubsystemBase {
     balanceMotor.set(power);
   }
 
-  public static Balance getinstance(){
+  public static Balance getInstance(){
     if (balance == null){
       balance = new Balance();
     }

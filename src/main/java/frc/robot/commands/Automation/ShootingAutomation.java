@@ -23,12 +23,12 @@ public class ShootingAutomation extends CommandBase {
   private ShooterTransfer shooterTransfer;
   private Conveyance conveyance; 
   public ShootingAutomation() {
-    automation = Automation.getinstance();
+    automation = Automation.getInstance();
     addRequirements(automation);
 
     ShooterPID = new ShooterPID(2000);
-    shooterTransfer = ShooterTransfer.getinstance();
-    conveyance = Conveyance.getinstance();
+    shooterTransfer = ShooterTransfer.getInstance();
+    conveyance = Conveyance.getInstance();
   }
 
   // Called when the command is initially scheduled.
@@ -41,7 +41,7 @@ public class ShootingAutomation extends CommandBase {
   @Override
   public void execute() {
     ShooterPID.execute();
-    if(Shooter.getinstance().PIDatSetpoint()) {
+    if(Shooter.getInstance().PIDatSetpoint()) {
       shooterTransfer.setTransferMotor(1);
       conveyance.setMotor(1);
     }else{

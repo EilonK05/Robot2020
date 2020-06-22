@@ -16,7 +16,7 @@ import frc.robot.subsystems.Elevator;
 public class ElevatorPiston extends InstantCommand {
   private Elevator elevator;
   public ElevatorPiston() {
-    elevator = Elevator.getinstance();
+    elevator = Elevator.getInstance();
     addRequirements(elevator);
   }
 

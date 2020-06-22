@@ -21,11 +21,6 @@ import edu.wpi.first.wpilibj.util.Color;
  */
 public final class ConstantsRoulette {
 
-    public static final int ROULETTE_MOTOR = 10;
-
-    public static final int ROULETTE_PISTON = 6;
-
-
     // Color
     public static final Color Red = ColorMatch.makeColor(1, 0, 0);
     public static final Color Green = ColorMatch.makeColor(0, 1, 0);

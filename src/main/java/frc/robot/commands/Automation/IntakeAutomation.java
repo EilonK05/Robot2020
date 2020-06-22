@@ -25,13 +25,13 @@ public class IntakeAutomation extends CommandBase {
   private Conveyance conveyance;
   private ShooterTransfer shooterTransfer;
   public IntakeAutomation() {
-    automation = Automation.getinstance();
+    automation = Automation.getInstance();
     addRequirements(automation);
 
     IntakePiston = new IntakePiston();
-    intake = Intake.getinstance();
-    conveyance = Conveyance.getinstance();
-    shooterTransfer = ShooterTransfer.getinstance();
+    intake = Intake.getInstance();
+    conveyance = Conveyance.getInstance();
+    shooterTransfer = ShooterTransfer.getInstance();
 
   }
 
@@ -46,7 +46,7 @@ public class IntakeAutomation extends CommandBase {
   public void execute() {
     intake.setMotor(1);
     conveyance.setMotor(1);
-    if(Shooter.getinstance().getIR()){
+    if(Shooter.getInstance().getIR()){
       shooterTransfer.setTransferMotor(0);
       conveyance.setMotor(1);
     }

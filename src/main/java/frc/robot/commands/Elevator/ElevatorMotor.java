@@ -18,7 +18,7 @@ public class ElevatorMotor extends CommandBase {
    */
   private Elevator elevator;
   public ElevatorMotor() {
-    elevator = Elevator.getinstance();
+    elevator = Elevator.getInstance();
     addRequirements(elevator);
   }
 

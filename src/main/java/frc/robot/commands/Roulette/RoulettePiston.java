@@ -16,7 +16,7 @@ import frc.robot.subsystems.Roulette;
 public class RoulettePiston extends InstantCommand {
   private Roulette roulette;
   public RoulettePiston() {
-    roulette = Roulette.getinstance();
+    roulette = Roulette.getInstance();
     addRequirements(roulette);
   }
 

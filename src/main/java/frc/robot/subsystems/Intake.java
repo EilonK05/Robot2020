@@ -19,8 +19,9 @@ public class Intake extends SubsystemBase {
    */
   public static Intake intake;
   
-  MAMotorControler intakeMotor;
-  public DoubleSolenoid intakePiston;
+  private MAMotorControler intakeMotor;
+  private DoubleSolenoid intakePiston;
+  
   public Intake() {
     intakeMotor = new MAMotorControler(RobotConstants.VICTOR, RobotConstants.m_ID12, 60, false, 60);
     intakePiston = new DoubleSolenoid(RobotConstants.p_ID2, RobotConstants.p_ID3);
@@ -32,12 +33,17 @@ public class Intake extends SubsystemBase {
   public void setReverse(){
     intakePiston.set(Value.kReverse);
   }
+
+  public Value getPiston() {
+    return intakePiston.get();
+  }
+
   // Motor Functions
   public void setMotor(double power){
     intakeMotor.set(power);
   }
   // Singletone
-  public static Intake getinstance(){
+  public static Intake getInstance(){
     if (intake == null){
       intake = new Intake();
     }
