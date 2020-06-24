@@ -30,7 +30,7 @@ public class BalanceCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(RobotContainer.OperatingJoystick.getRawAxis(0) > 0.15 || RobotContainer.OperatingJoystick.getRawAxis(0) < 0.15){
+    if(RobotContainer.OperatingJoystick.getRawAxis(RobotConstants.STICK_LEFT_Xaxis) > 0.15 || RobotContainer.OperatingJoystick.getRawAxis(RobotConstants.STICK_LEFT_Xaxis) < 0.15){
       balance.setMotor(RobotContainer.OperatingJoystick.getRawAxis(RobotConstants.STICK_LEFT_Xaxis));
     }else{
       balance.setMotor(0);

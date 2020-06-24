@@ -42,8 +42,8 @@ public class ShootingAutomation extends CommandBase {
   public void execute() {
     ShooterPID.execute();
     if(Shooter.getInstance().PIDatSetpoint()) {
-      shooterTransfer.setTransferMotor(1);
-      conveyance.setMotor(1);
+      shooterTransfer.setTransferMotor(-1);
+      conveyance.setMotor(-1);
     }else{
       conveyance.setMotor(0);
       shooterTransfer.setTransferMotor(0);

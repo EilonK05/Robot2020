@@ -44,11 +44,11 @@ public class IntakeAutomation extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intake.setMotor(1);
-    conveyance.setMotor(1);
+    intake.setMotor(-1);
+    conveyance.setMotor(-1);
     if(Shooter.getInstance().getIR()){
       shooterTransfer.setTransferMotor(0);
-      conveyance.setMotor(1);
+      conveyance.setMotor(0);
     }
     
   }
@@ -57,6 +57,7 @@ public class IntakeAutomation extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     intake.setMotor(0);
+    conveyance.setMotor(0);
   }
 
   // Returns true when the command should end.

@@ -15,6 +15,16 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.commands.Automation.IntakeAutomation;
+import frc.robot.commands.Automation.ShootingAutomation;
+import frc.robot.commands.Conveyance.ConveyanceCommand;
+import frc.robot.commands.Elevator.ElevatorPiston;
+import frc.robot.commands.Intake.IntakeMotor;
+import frc.robot.commands.Intake.IntakePiston;
+import frc.robot.commands.Roulette.RouletteMotor;
+import frc.robot.commands.Roulette.RoulettePiston;
+import frc.robot.commands.Shooter.ShooterPID;
+import frc.robot.commands.Shooter.ShooterTransferCommand;
 import frc.robot.utils.RobotConstants;
 
 /**
@@ -70,21 +80,26 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
 
-    /*
-     * AButton.whileHeld(new Command()); BButton.whileHeld(new Command());
-     * AButton.whileHeld(new Command()); XButton.whileHeld(new Command());
-     * YButton.whileHeld(new Command()); RB.whileHeld(new Command());
-     * LB.whileHeld(new Command()); backkButton.whileHeld(command);
-     * startButton.whileHeld(command); stickRight.whileHeld(command);
-     * stickRight.whileHeld(command); triggerL.whileActiveContinuous(command);
-     * triggerR.whileActiveContinuous(command);
-     * stickLeft.whileActiveContinuous(command);
-     * 
-     * POVDown.whileActiveContinuous(command);
-     * POVLeft.whenAcwhileActiveContinuoustive(command);
-     * POVRight.whileActiveContinuous(command);
-     * POVDown.whileActiveContinuous(command)
-     */
+    
+     AButton.whileHeld(new ConveyanceCommand(1)); 
+     BButton.whileHeld(new IntakeMotor(-1));
+     XButton.whileHeld(new IntakeMotor(1));
+     YButton.whileHeld(new ConveyanceCommand(-1)); 
+     RB.whenPressed(new ElevatorPiston());
+     LB.whenPressed(new IntakePiston()); 
+     //backkButton.whileHeld(command);
+     //startButton.whileHeld(command); 
+     //stickRight.whileHeld(command);
+     //stickLeft.whileActiveContinuous(command);
+     triggerL.whileActiveContinuous(new ShooterPID(2000));
+     triggerR.whileActiveContinuous(new ShooterTransferCommand());
+     
+     
+     POVUp.whenPressed(new RoulettePiston());
+     POVLeft.whileActiveContinuous(new ShootingAutomation());
+     POVRight.whileActiveContinuous(new RouletteMotor());
+     POVDown.whileActiveContinuous(new IntakeAutomation());
+    
 
   }
 

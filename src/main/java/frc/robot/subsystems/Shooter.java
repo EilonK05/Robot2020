@@ -29,48 +29,59 @@ public class Shooter extends SubsystemBase {
   final double SHOOTER_PID_KI = 0.0002;
   final double SHOOTER_PID_KD = 0;
   double SHOOTER_PID_KF;
+
   public Shooter() {
-    shooterSparkMaxA = new MAMotorControler(RobotConstants.SPARK_MAX, RobotConstants.m_ID5, RobotConstants.Encoder, null, 60, true, 0);
+    shooterSparkMaxA = new MAMotorControler(RobotConstants.SPARK_MAX, RobotConstants.m_ID5, RobotConstants.Encoder,
+        null, 60, true, 0);
     shooterSparkMaxB = new MAMotorControler(RobotConstants.SPARK_MAX, RobotConstants.m_ID6, 60, false, 0);
     shooterSparkMaxB.followSparkMax(shooterSparkMaxA);
 
     IR = new DigitalInput(RobotConstants.DIO_ID0);
 
-    pid = new MAPidController(SHOOTER_PID_KP, SHOOTER_PID_KI, SHOOTER_PID_KD,SHOOTER_PID_KF , 70, -1, 1);
+    pid = new MAPidController(SHOOTER_PID_KP, SHOOTER_PID_KI, SHOOTER_PID_KD, 0, 70, 0, 12);
   }
+
   // Motor Functions
-  public void setShooterMotor(double power){
-   shooterSparkMaxA.setvoltage(power); 
+  public void setShooterMotor(double power) {
+    shooterSparkMaxA.setvoltage(power);
   }
+
   // IR Functions
-  public boolean getIR(){
+  public boolean getIR() {
     return IR.get();
   }
+
   // Encoder Functions
-  public double getVelocity(){
+  public double getVelocity() {
     return shooterSparkMaxA.getVelocity();
   }
+
   // PID Functions
-  public double getPID(){
-    SHOOTER_PID_KF = (12 * pid.getSetpoint()) / 5700;
-    return pid.calculate(SHOOTER_PID_KF); 
+  public double getPID() {
+    pid.setF((12 * pid.getSetpoint()) / 5700);
+    return pid.calculate(getVelocity());
   }
-  public boolean PIDatSetpoint(){
+
+  public boolean PIDatSetpoint() {
     return pid.atSetpoint(0.1);
   }
-  public void resetPID(){
+
+  public void resetPID() {
     pid.reset();
   }
-  public void setSetpoint(double setpoint){
+
+  public void setSetpoint(double setpoint) {
     pid.setSetpoint(setpoint);
   }
+
   // Singletone
-  public static Shooter getInstance(){
-    if (shooter == null){
+  public static Shooter getInstance() {
+    if (shooter == null) {
       shooter = new Shooter();
     }
     return shooter;
-    }
+  }
+
   @Override
   public void periodic() {
     SmartDashboard.putNumber("Shooter Encoder", getVelocity());

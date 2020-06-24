@@ -25,8 +25,8 @@ public class ShooterPID extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    shotter.setSetpoint(2000);
     shotter.resetPID();
+    shotter.setSetpoint(2800);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

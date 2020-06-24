@@ -19,7 +19,7 @@ public class Conveyance extends SubsystemBase {
 
   MAMotorControler conveyanceMotor;
   public Conveyance() {
-    conveyanceMotor = new MAMotorControler(RobotConstants.VICTOR, RobotConstants.m_ID11, 60, false, 0);
+    conveyanceMotor = new MAMotorControler(RobotConstants.TALON, RobotConstants.m_ID11, 60, false, 0);
   }
 
   public void setMotor(double power){

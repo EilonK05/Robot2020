@@ -86,12 +86,12 @@ public class RobotConstants {
     public static final int STICK_RIGHT = 10;
 
     // axis
-    public static final int STICK_RIGHT_Yaxis = 5; // TODO
-    public static final int STICK_RIGHT_Xaxis = 4; // TODO
-    public static final int STICK_LEFT_Yaxis = 1; // TODO
-    public static final int STICK_LEFT_Xaxis = 2; // TODO
-    public static final int LTriger = 2; // TODO
-    public static final int RTriger = 3; // TODO
+    public static final int STICK_RIGHT_Yaxis = 5;
+    public static final int STICK_RIGHT_Xaxis = 4; 
+    public static final int STICK_LEFT_Yaxis = 1; 
+    public static final int STICK_LEFT_Xaxis = 0; 
+    public static final int LTriger = 2; 
+    public static final int RTriger = 3; 
 
     // POV
     public static final int POV_CENTER = -1;

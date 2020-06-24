@@ -10,6 +10,19 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.Balance.BalanceCommand;
+import frc.robot.commands.Chassis.MAPath;
+import frc.robot.commands.Chassis.tankDrive;
+import frc.robot.commands.Elevator.ElevatorMotor;
+import frc.robot.subsystems.Automation;
+import frc.robot.subsystems.Autonomous;
+import frc.robot.subsystems.Balance;
+import frc.robot.subsystems.Chassis;
+import frc.robot.subsystems.Conveyance;
+import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.Roulette;
+import frc.robot.subsystems.Shooter;
+import frc.robot.utils.limelight;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -20,7 +33,8 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  */
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
-  //private frc.robot.commands.Chassis.tankDrive tankDrive = new frc.robot.commands.Chassis.tankDrive();
+  // private frc.robot.commands.Chassis.tankDrive tankDrive = new
+  // frc.robot.commands.Chassis.tankDrive();
   private RobotContainer m_robotContainer;
 
   /**
@@ -30,6 +44,16 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     m_robotContainer = new RobotContainer();
+    limelight.getInstance();
+    Chassis.getInstance();
+    Balance.getInstance();
+    Shooter.getInstance();
+    Elevator.getInstance();
+    Conveyance.getInstance();
+    Roulette.getInstance();
+    Automation.getInstance();
+    Autonomous.getInstance();
+
   }
 
   /**
@@ -45,6 +69,9 @@ public class Robot extends TimedRobot {
   public void robotPeriodic() {
 
     CommandScheduler.getInstance().run();
+    CommandScheduler.getInstance().setDefaultCommand(Elevator.getInstance(), new ElevatorMotor());
+    CommandScheduler.getInstance().setDefaultCommand(Balance.getInstance(), new BalanceCommand());
+    CommandScheduler.getInstance().setDefaultCommand(Chassis.getInstance(), new tankDrive());
   }
 
   /**
@@ -52,7 +79,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
-    //Chassis.getInstance().setidilmodeBrake(true);
+    // Chassis.getInstance().setidilmodeBrake(true);
   }
 
   @Override
@@ -65,9 +92,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    //MAPath.pathnum = 0;
-   // Chassis.getInstance().resetValue();
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    // MAPath.pathnum = 0;
+    Chassis.getInstance().resetValue();
+    m_autonomousCommand = new MAPath(0.1);
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
@@ -84,11 +111,14 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    //Chassis.getInstance().rampRate(0);
-   // CommandScheduler.getInstance().setDefaultCommand(Chassis.getInstance(), tankDrive);
-    
+    Chassis.getInstance().setidilmodeBrake(false);
+    Chassis.getInstance().rampRate(0);
+    //CommandScheduler.getInstance().setDefaultCommand(Chassis.getInstance(), ankDrive);
+    Chassis.getInstance().resetValue();
+
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
+
     }
   }
 

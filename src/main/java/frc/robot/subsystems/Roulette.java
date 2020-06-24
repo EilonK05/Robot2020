@@ -7,10 +7,6 @@
 
 package frc.robot.subsystems;
 
-import java.util.regex.Matcher;
-
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorSensorV3;
@@ -132,7 +128,7 @@ public class Roulette extends SubsystemBase {
     SmartDashboard.putNumber("Roulette Closest Green:", closestColor.color.green);
     SmartDashboard.putNumber("Roulette Closest Blue:", closestColor.color.blue);
 
-    SmartDashboard.putNumber("Roulette PID Setpoint", colorPID.getSetpoint());
+    //SmartDashboard.putNumber("Roulette PID Setpoint", colorPID.getSetpoint());
   }
   
   @Override

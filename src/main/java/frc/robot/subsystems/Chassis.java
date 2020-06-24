@@ -27,7 +27,7 @@ public class Chassis extends SubsystemBase {
 
   private static final double KP_MApath_distance = 40e-6;
   private static final double KI_MApath_distance = 0;
-  private static final double KD_MApath_distance = 20e-7;
+  private static final double KD_MApath_distance = 4e-6;
 
   private static final double KP_MApath_angle = 1e-2;
   private static final double KI_MApath_angle = 0;
@@ -77,18 +77,21 @@ public class Chassis extends SubsystemBase {
 
   private Chassis() {
 
-    leftFrontMotor = new MAMotorControler(RobotConstants.SPARK_MAX, RobotConstants.m_ID1, RobotConstants.Encoder, null,
+    leftFrontMotor = new MAMotorControler(RobotConstants.SPARK_MAX, RobotConstants.m_ID1, RobotConstants.Alternate_Encoder, null,
         60, true, 0);
-    leftMotor = new MAMotorControler(RobotConstants.SPARK_MAX, RobotConstants.m_ID2, RobotConstants.Alternate_Encoder,
+    leftMotor = new MAMotorControler(RobotConstants.SPARK_MAX, RobotConstants.m_ID2, RobotConstants.Encoder,
         null, 60, true, 0);
 
-    rightFrontMotor = new MAMotorControler(RobotConstants.SPARK_MAX, RobotConstants.m_ID3, RobotConstants.Encoder, null,
+    rightFrontMotor = new MAMotorControler(RobotConstants.SPARK_MAX, RobotConstants.m_ID3, RobotConstants.Alternate_Encoder, null,
         60, false, 0);
-    rightMotor = new MAMotorControler(RobotConstants.SPARK_MAX, RobotConstants.m_ID4, RobotConstants.Alternate_Encoder,
+    rightMotor = new MAMotorControler(RobotConstants.SPARK_MAX, RobotConstants.m_ID4, RobotConstants.Encoder,
         null, 60, false, 0);
 
     leftMotor.followSparkMax(leftFrontMotor);
     rightMotor.followSparkMax(rightFrontMotor);
+
+    leftFrontMotor.PhaseSensor(false);
+    rightFrontMotor.PhaseSensor(true);
 
     navx = new AHRS(Port.kMXP);
 
@@ -138,6 +141,8 @@ public class Chassis extends SubsystemBase {
     SmartDashboard.putNumber("fixedAngle", fixedAngle());
     SmartDashboard.putNumber("stage", MAPath.stage);
     SmartDashboard.putNumber("distacne", average() / RobotConstants.ticksPerMeter);
+    SmartDashboard.putNumber("right encoder", rightFrontMotor.getPosition());
+    SmartDashboard.putNumber("left encdoer", leftFrontMotor.getPosition());
     SmartDashboard.putNumber("angelSetPoint", anglePidMApath.getSetpoint());
     SmartDashboard.putBoolean("PIDvisonOnTarget", anglePIDVision.atSetpoint(0.1));
     SmartDashboard.putNumber("DistanceSetPoint", distancePidMApath.getSetpoint() / RobotConstants.ticksPerMeter);
@@ -162,7 +167,7 @@ public class Chassis extends SubsystemBase {
 
   // the average of the encoders
   public double average() {
-    return (rightMotor.getPosition() + rightMotor.getPosition()) / 2;
+    return (rightFrontMotor.getPosition() + leftFrontMotor.getPosition()) / 2;
   }
 
   public double fixedAngle() {
@@ -195,6 +200,8 @@ public class Chassis extends SubsystemBase {
     navx.reset();
     leftMotor.resetEncoder();
     rightMotor.resetEncoder();
+    leftFrontMotor.resetEncoder();
+    rightFrontMotor.resetEncoder();
   }
 
   // pid vison distance

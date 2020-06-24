@@ -344,13 +344,13 @@ public class MAMotorControler {
      */
     public void setvoltage(double setPower) {
         if (name == RobotConstants.TALON) {
-            talonSRX.setVoltage(setPower * voltage);
+            talonSRX.setVoltage(setPower);
         } else if (name == RobotConstants.VICTOR) {
-            victorSPX.setVoltage(setPower * voltage);
+            victorSPX.setVoltage(setPower);
         } else if (name == RobotConstants.SPARK) {
-            spark.setVoltage(setPower * voltage);
+            spark.setVoltage(setPower);
         } else {
-            canSparkMax.setVoltage(setPower * voltage);
+            canSparkMax.setVoltage(setPower);
         }
     }
 
@@ -437,7 +437,8 @@ public class MAMotorControler {
     public void PhaseSensor(boolean PhaseSensor) {
         if (name == RobotConstants.TALON && encoder == RobotConstants.Encoder) {
             talonSRX.setSensorPhase(PhaseSensor);
-        } else {
+        } else if (name == RobotConstants.SPARK_MAX && encoder != RobotConstants.No_Encoder) {
+            canEncoder.setInverted(PhaseSensor);
             System.out.println("error");
         }
     }
@@ -600,6 +601,7 @@ public class MAMotorControler {
             spark.setInverted(setInverted);
         } else {
             canSparkMax.setInverted(setInverted);
+
         }
 
     }

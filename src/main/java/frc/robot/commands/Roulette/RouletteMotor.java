@@ -35,32 +35,34 @@ public class RouletteMotor extends CommandBase {
     String gameData = DriverStation.getInstance().getGameSpecificMessage();
 
     switch (gameData.charAt(0)) {
-      case 'r' :
+     case 'r' :
       wantedColor = ConstantsRoulette.Red;
-      break;
-      case 'b' :
+     break;
+     case 'b' :
         wantedColor = ConstantsRoulette.Blue;
-        break;
-      case 'y':
+      break;
+     case 'y':
         wantedColor = ConstantsRoulette.Yellow;
         break;
       case 'g':
         wantedColor = ConstantsRoulette.Green;
-        break;  
+       break;  
+        
     }
 
     int optimalWay = roulette.getOptimalWay(wantedColor);
 
     roulette.setSetpoint(roulette.getColorEncoder() + optimalWay);
-    roulette.setReversed(optimalWay < 0);
+   roulette.setReversed(optimalWay < 0);
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
+   //Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     double power = roulette.getPID();
 
     roulette.setMotor(power);
+
   }
 
   // Called once the command ends or is interrupted.

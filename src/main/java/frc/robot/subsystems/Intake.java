@@ -24,7 +24,7 @@ public class Intake extends SubsystemBase {
   
   public Intake() {
     intakeMotor = new MAMotorControler(RobotConstants.VICTOR, RobotConstants.m_ID12, 60, false, 60);
-    intakePiston = new DoubleSolenoid(RobotConstants.p_ID2, RobotConstants.p_ID3);
+    intakePiston = new DoubleSolenoid(RobotConstants.p_ID7, RobotConstants.p_ID5);
   }
   // Piston Functions
   public void setForward(){
