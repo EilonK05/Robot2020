@@ -25,6 +25,11 @@ import frc.robot.commands.Roulette.RouletteMotor;
 import frc.robot.commands.Roulette.RoulettePiston;
 import frc.robot.commands.Shooter.ShooterPID;
 import frc.robot.commands.Shooter.ShooterTransferCommand;
+import frc.robot.subsystems.Conveyance;
+import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Roulette;
+import frc.robot.subsystems.ShooterTransfer;
 import frc.robot.utils.RobotConstants;
 
 /**
@@ -79,28 +84,43 @@ public class RobotContainer {
    * passing it to a {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    AButton.whenPressed(() -> Conveyance.getInstance().setMotor(1), Conveyance.getInstance())
+           .whenReleased(() -> Conveyance.getInstance().setMotor(0)); 
+     
+    BButton.whenPressed(() -> Intake.getInstance().setMotor(-1), Intake.getInstance())
+           .whenReleased(() -> Intake.getInstance().setMotor(0));
+     
+    XButton.whenPressed(() -> Intake.getInstance().setMotor(1), Intake.getInstance())
+           .whenReleased(() -> Intake.getInstance().setMotor(0));
+     
+    YButton.whenPressed(() -> Conveyance.getInstance().setMotor(-1), Conveyance.getInstance())
+           .whenReleased(() -> Conveyance.getInstance().setMotor(0)); 
 
+    RB.whenPressed(() -> Elevator.getInstance().setPiston(!Elevator.getInstance().getPiston())
+      ,Elevator.getInstance());
+     
+    LB.whenPressed(() -> Intake.getInstance().setPiston(!Intake.getInstance().getPiston())
+      ,Intake.getInstance()); 
     
-     AButton.whileHeld(new ConveyanceCommand(1)); 
-     BButton.whileHeld(new IntakeMotor(-1));
-     XButton.whileHeld(new IntakeMotor(1));
-     YButton.whileHeld(new ConveyanceCommand(-1)); 
-     RB.whenPressed(new ElevatorPiston());
-     LB.whenPressed(new IntakePiston()); 
-     //backkButton.whileHeld(command);
-     //startButton.whileHeld(command); 
-     //stickRight.whileHeld(command);
-     //stickLeft.whileActiveContinuous(command);
-     triggerL.whileActiveContinuous(new ShooterPID(2000));
-     triggerR.whileActiveContinuous(new ShooterTransferCommand());
+    //backkButton.whileHeld(command);
+    //startButton.whileHeld(command); 
+    //stickRight.whileHeld(command);
+    //stickLeft.whileActiveContinuous(command);
+     
+    triggerL.whileActiveContinuous(new ShooterPID(2000));
+
+    triggerR.whenActive(() -> ShooterTransfer.getInstance().setTransferMotor(-0.5), ShooterTransfer.getInstance())
+            .whenInactive(() -> ShooterTransfer.getInstance().setTransferMotor(0));
      
      
-     POVUp.whenPressed(new RoulettePiston());
+     POVUp.whenPressed(() -> Roulette.getInstance().setPiston(!Roulette.getInstance().getPiston())
+          ,Roulette.getInstance());
+
      POVLeft.whileActiveContinuous(new ShootingAutomation());
-     POVRight.whileActiveContinuous(new RouletteMotor());
-     POVDown.whileActiveContinuous(new IntakeAutomation());
-    
 
+     POVRight.whenPressed(new RouletteMotor());
+
+     POVDown.whileActiveContinuous(new IntakeAutomation());
   }
 
   /**
