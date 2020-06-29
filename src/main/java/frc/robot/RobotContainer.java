@@ -99,7 +99,7 @@ public class RobotContainer {
     RB.whenPressed(() -> Elevator.getInstance().setPiston(!Elevator.getInstance().getPiston())
       ,Elevator.getInstance());
      
-    LB.whenPressed(() -> Intake.getInstance().setPiston(!Intake.getInstance().getPiston())
+    LB.whenPressed(Intake.getInstance()::reversePiston)
       ,Intake.getInstance()); 
     
     //backkButton.whileHeld(command);

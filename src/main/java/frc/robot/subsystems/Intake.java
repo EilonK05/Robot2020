@@ -35,6 +35,10 @@ public class Intake extends SubsystemBase {
     intakePiston.set(Value.kReverse);
     }
   }
+  
+  public void reversePiston() {
+    setPiston(!getPiston());
+  }
   // Piston Functions
   public void setForward(){
     intakePiston.set(Value.kForward);
