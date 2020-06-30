@@ -12,13 +12,18 @@ package frc.robot.subsystems;
  */
 
 import com.kauailabs.navx.frc.AHRS;
+
 import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpiutil.math.MathUtil;
-import frc.robot.utils.*;
 import frc.robot.Path.Path;
-import frc.robot.commands.Chassis.MAPath;;
+import frc.robot.commands.Chassis.MAPath;
+import frc.robot.utils.MAMotorControler;
+import frc.robot.utils.MAPidController;
+import frc.robot.utils.RobotConstants;
+import frc.robot.utils.StopAll;
+import frc.robot.utils.limelight;;
 
 /**
  * An example subsystem. You can replace me with your own Subsystem.
@@ -34,10 +39,10 @@ public class Chassis extends SubsystemBase {
   private static final double KD_MApath_angle = 1e-3;
 
   private static final double KP_Vision_angle = 2.5e-2;
-  private static final double KI_Vision_angle = 8e-4;
+  private static final double KI_Vision_angle = 5e-4;
   private static final double KD_Vision_angle = 1e-3;
 
-  private static final double KP_Vision_distance = 1.6e-2;
+  private static final double KP_Vision_distance = 1e-2;
   private static final double KI_Vision_distance = 0;
   private static final double KD_Vision_distance = 0;
 
@@ -304,7 +309,8 @@ public class Chassis extends SubsystemBase {
   @Override
   public void periodic() {
     value();
-
+    SmartDashboard.putData("Stop All", new StopAll());
+    SmartDashboard.putData(Chassis.getInstance());
   }
 
 }

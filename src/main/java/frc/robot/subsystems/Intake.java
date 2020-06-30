@@ -9,7 +9,9 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.commands.Intake.IntakeMotor;
 import frc.robot.utils.MAMotorControler;
 import frc.robot.utils.RobotConstants;
 
@@ -23,7 +25,7 @@ public class Intake extends SubsystemBase {
   private DoubleSolenoid intakePiston;
   
   public Intake() {
-    intakeMotor = new MAMotorControler(RobotConstants.VICTOR, RobotConstants.m_ID12, 60, false, 60);
+    intakeMotor = new MAMotorControler(RobotConstants.VICTOR, RobotConstants.m_ID12, 60, false, 0);
     intakePiston = new DoubleSolenoid(RobotConstants.p_ID7, RobotConstants.p_ID5);
   }
   // Piston Functions
@@ -53,5 +55,7 @@ public class Intake extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putData("Intake Forward", new IntakeMotor(1));
+    SmartDashboard.putData("Intake Backward", new IntakeMotor(-1));
   }
 }

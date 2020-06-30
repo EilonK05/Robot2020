@@ -67,11 +67,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-
     CommandScheduler.getInstance().run();
-    CommandScheduler.getInstance().setDefaultCommand(Elevator.getInstance(), new ElevatorMotor());
-    CommandScheduler.getInstance().setDefaultCommand(Balance.getInstance(), new BalanceCommand());
-    CommandScheduler.getInstance().setDefaultCommand(Chassis.getInstance(), new tankDrive());
   }
 
   /**
@@ -113,8 +109,12 @@ public class Robot extends TimedRobot {
   public void teleopInit() {
     Chassis.getInstance().setidilmodeBrake(false);
     Chassis.getInstance().rampRate(0);
-    //CommandScheduler.getInstance().setDefaultCommand(Chassis.getInstance(), ankDrive);
+    CommandScheduler.getInstance().setDefaultCommand(Elevator.getInstance(), new ElevatorMotor());
+    CommandScheduler.getInstance().setDefaultCommand(Balance.getInstance(), new BalanceCommand());
+    CommandScheduler.getInstance().setDefaultCommand(Chassis.getInstance(), new tankDrive());
     Chassis.getInstance().resetValue();
+
+  
 
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();

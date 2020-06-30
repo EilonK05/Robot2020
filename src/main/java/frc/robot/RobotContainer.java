@@ -17,6 +17,8 @@ import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.Automation.IntakeAutomation;
 import frc.robot.commands.Automation.ShootingAutomation;
+import frc.robot.commands.Chassis.PIDVision;
+import frc.robot.commands.Chassis.PIDVisionFeeder;
 import frc.robot.commands.Conveyance.ConveyanceCommand;
 import frc.robot.commands.Elevator.ElevatorPiston;
 import frc.robot.commands.Intake.IntakeMotor;
@@ -97,7 +99,7 @@ public class RobotContainer {
      
      POVUp.whenPressed(new RoulettePiston());
      POVLeft.whileActiveContinuous(new ShootingAutomation());
-     POVRight.whileActiveContinuous(new RouletteMotor());
+     POVRight.whenPressed(new PIDVisionFeeder());
      POVDown.whileActiveContinuous(new IntakeAutomation());
     
 

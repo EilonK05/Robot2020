@@ -77,7 +77,7 @@ public class limelight extends SubsystemBase {
   }
 
   public void pipeline(int pipeline) {
-    NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").setNumber(pipeline);
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(pipeline);
   }
 
   public void stream(int stream) {
