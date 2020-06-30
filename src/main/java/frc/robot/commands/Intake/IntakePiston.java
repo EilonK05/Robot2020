@@ -27,10 +27,12 @@ public class IntakePiston extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    /*
     if(intake.getPiston() == Value.kForward){
       intake.setReverse();
     }else{
       intake.setForward();
     }
   }
+  */
 }
