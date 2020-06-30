@@ -13,7 +13,9 @@ package frc.robot.subsystems;
 
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.SPI.Port;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpiutil.math.MathUtil;
@@ -30,6 +32,14 @@ import frc.robot.utils.limelight;;
  */
 public class Chassis extends SubsystemBase {
 
+  static NetworkTableEntry distanceKP = Shuffleboard.getTab("PID")
+  .add("Distance KP", 1)
+  .withWidget("PID")
+  .withPosition(1, 1)
+  .withSize(2, 1)
+  .getEntry();
+
+
   private static final double KP_MApath_distance = 40e-6;
   private static final double KI_MApath_distance = 0;
   private static final double KD_MApath_distance = 4e-6;
@@ -42,7 +52,7 @@ public class Chassis extends SubsystemBase {
   private static final double KI_Vision_angle = 5e-4;
   private static final double KD_Vision_angle = 1e-3;
 
-  private static final double KP_Vision_distance = 1e-2;
+  private static final double KP_Vision_distance = distanceKP.getDouble(0);
   private static final double KI_Vision_distance = 0;
   private static final double KD_Vision_distance = 0;
 
