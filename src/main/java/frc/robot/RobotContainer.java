@@ -7,25 +7,21 @@
 
 package frc.robot;
 
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.Automation.IntakeAutomation;
 import frc.robot.commands.Automation.ShootingAutomation;
-import frc.robot.commands.Conveyance.ConveyanceCommand;
-import frc.robot.commands.Elevator.ElevatorPiston;
 import frc.robot.commands.Intake.IntakeMotor;
-import frc.robot.commands.Intake.IntakePiston;
 import frc.robot.commands.Roulette.RouletteMotor;
-import frc.robot.commands.Roulette.RoulettePiston;
 import frc.robot.commands.Shooter.ShooterPID;
-import frc.robot.commands.Shooter.ShooterTransferCommand;
 import frc.robot.subsystems.Conveyance;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
@@ -42,6 +38,14 @@ import frc.robot.utils.RobotConstants;
  */
 
 public class RobotContainer {
+  NetworkTableEntry coveyanceSpeed = Shuffleboard.getTab("Systems Control")
+  .add("Conveyance Speed", 1)
+  .withWidget("Number Slider")
+  .withPosition(1, 1)
+  .withSize(2, 1)
+  .getEntry();
+
+  
 
   public static XboxController OperatingJoystick = new XboxController(2);
   public static Joystick leftJoystick = new Joystick(0);
@@ -85,16 +89,14 @@ public class RobotContainer {
    * passing it to a {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    /*
-    AButton.whenPressed(() -> Conveyance.getInstance().setMotor(1), Conveyance.getInstance())
-           .whenReleased(() -> Conveyance.getInstance().setMotor(0)); 
-     */
-    
-    BButton.whenPressed(() -> Intake.getInstance().setMotor(-1), Intake.getInstance())
-           .whenReleased(() -> Intake.getInstance().setMotor(0));
+    //AButton.whenPressed(() -> Conveyance.getInstance().setMotor(coveyanceSpeed.getDouble(0)), Conveyance.getInstance())
+          // .whenReleased(() -> Conveyance.getInstance().setMotor(0)); 
      
-    XButton.whenPressed(() -> Intake.getInstance().setMotor(1), Intake.getInstance())
-           .whenReleased(() -> Intake.getInstance().setMotor(0));
+    //BButton.whenPressed(() -> Intake.getInstance().setMotor(intakeSpeed.getDouble(0)), Intake.getInstance())
+         //  .whenReleased(() -> Intake.getInstance().setMotor(0));
+     
+    //XButton.whenPressed(() -> Intake.getInstance().setMotor(1), Intake.getInstance())
+          // .whenReleased(() -> Intake.getInstance().setMotor(0));
      
     YButton.whenPressed(() -> Conveyance.getInstance().setMotor(-1), Conveyance.getInstance())
            .whenReleased(() -> Conveyance.getInstance().setMotor(0)); 
@@ -102,9 +104,8 @@ public class RobotContainer {
     RB.whenPressed(() -> Elevator.getInstance().setPiston(!Elevator.getInstance().getPiston())
       ,Elevator.getInstance());
      
-    LB.whenPressed(Intake.getInstance()::reversePiston
-      ,Intake.getInstance()); 
-
+    LB.whenPressed(Intake.getInstance()::reversePiston,Intake.getInstance()); 
+    
     //backkButton.whileHeld(command);
     //startButton.whileHeld(command); 
     //stickRight.whileHeld(command);
@@ -124,6 +125,8 @@ public class RobotContainer {
      POVRight.whenPressed(new RouletteMotor());
 
      POVDown.whileActiveContinuous(new IntakeAutomation());
+
+     BButton.whileHeld(new IntakeMotor());
   }
 
   /**
