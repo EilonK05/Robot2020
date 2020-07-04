@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -84,9 +85,11 @@ public class RobotContainer {
    * passing it to a {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    /*
     AButton.whenPressed(() -> Conveyance.getInstance().setMotor(1), Conveyance.getInstance())
            .whenReleased(() -> Conveyance.getInstance().setMotor(0)); 
-     
+     */
+    
     BButton.whenPressed(() -> Intake.getInstance().setMotor(-1), Intake.getInstance())
            .whenReleased(() -> Intake.getInstance().setMotor(0));
      
@@ -99,9 +102,9 @@ public class RobotContainer {
     RB.whenPressed(() -> Elevator.getInstance().setPiston(!Elevator.getInstance().getPiston())
       ,Elevator.getInstance());
      
-    LB.whenPressed(Intake.getInstance()::reversePiston)
+    LB.whenPressed(Intake.getInstance()::reversePiston
       ,Intake.getInstance()); 
-    
+
     //backkButton.whileHeld(command);
     //startButton.whileHeld(command); 
     //stickRight.whileHeld(command);
