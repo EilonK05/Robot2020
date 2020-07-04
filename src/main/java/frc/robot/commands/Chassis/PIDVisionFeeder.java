@@ -8,6 +8,7 @@
 package frc.robot.commands.Chassis;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Robot;
 import frc.robot.subsystems.Chassis;
 import frc.robot.utils.limelight;
 
@@ -24,7 +25,7 @@ public class PIDVisionFeeder extends CommandBase {
   @Override
   public void initialize() {
     limelight.getInstance().camMode(0);
-    limelight.getInstance().pipeline(1);
+    limelight.getInstance().pipeline(6);
     chassis.rampRate(0);
     chassis.setidilmodeBrake(true);
   }
@@ -35,13 +36,19 @@ public class PIDVisionFeeder extends CommandBase {
 
     double angel = chassis.anglePIDVisionOutput(0);
     double distacne = chassis.distancePIDVisionOutput(66);
-    chassis.ArcadeDrive(angel, distacne);
+    if(limelight.getInstance().Tshort > 2){
+      chassis.ArcadeDrive(angel, distacne);
+    }else{
+      chassis.tankDrive(0, 0);
+    }
+    
+
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    limelight.getInstance().camMode(1);
+    //limelight.getInstance().camMode(1);
     chassis.tankDrive(0, 0);
     chassis.reset();
     chassis.setidilmodeBrake(true);

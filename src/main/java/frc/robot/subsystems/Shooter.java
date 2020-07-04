@@ -90,5 +90,6 @@ public class Shooter extends SubsystemBase {
     SmartDashboard.putNumber("Shooter PID P", pid.getPositionError());
     SmartDashboard.putNumber("Shooter Motor Output", shooterSparkMaxA.getOutput());
     SmartDashboard.putBoolean("Shooter PID At Setpoint", PIDatSetpoint());
+    SmartDashboard.putData("Shooter Subsystem", Shooter.getInstance());
   }
 }

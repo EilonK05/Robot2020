@@ -7,7 +7,9 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.commands.Conveyance.ConveyanceCommand;
 import frc.robot.utils.MAMotorControler;
 import frc.robot.utils.RobotConstants;
 
@@ -37,6 +39,7 @@ public class Conveyance extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    SmartDashboard.putData("Conveyance Forward", new ConveyanceCommand(1));
+    SmartDashboard.putData("Conveyance Backward" , new ConveyanceCommand(-1));
   }
 }
