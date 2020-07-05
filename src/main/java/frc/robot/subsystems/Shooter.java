@@ -39,6 +39,8 @@ public class Shooter extends SubsystemBase {
     IR = new DigitalInput(RobotConstants.DIO_ID0);
 
     pid = new MAPidController(SHOOTER_PID_KP, SHOOTER_PID_KI, SHOOTER_PID_KD, 0, 70, 0, 12);
+  
+    setSetpoint(2800);
   }
 
   // Motor Functions

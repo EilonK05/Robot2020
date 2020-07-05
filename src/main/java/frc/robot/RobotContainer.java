@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -22,10 +23,12 @@ import frc.robot.commands.Automation.ShootingAutomation;
 import frc.robot.commands.Intake.IntakeMotor;
 import frc.robot.commands.Roulette.RouletteMotor;
 import frc.robot.commands.Shooter.ShooterPID;
+import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.Conveyance;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Roulette;
+import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.ShooterTransfer;
 import frc.robot.utils.MACommandBinder;
 import frc.robot.utils.RobotConstants;
@@ -97,17 +100,20 @@ public class RobotContainer {
      , Intake.getInstance());
     //BButton.whenPressed(() -> Intake.getInstance().setMotor(intakeSpeed.getDouble(0)), Intake.getInstance())
          //  .whenReleased(() -> Intake.getInstance().setMotor(0));
-     
+      MACommandBinder.getInstance().perpetualBind(BButton, new InstantCommand(()-> Roulette.getInstance().setMotor(1)));
     //XButton.whenPressed(() -> Intake.getInstance().setMotor(-1), Intake.getInstance())
           // .whenReleased(() -> Intake.getInstance().setMotor(0));
-    MACommandBinder.getInstance().startEndBind(YButton, Conveyance.getInstance().getMotorFunction(-1), Conveyance.getInstance().getMotorFunction(0)
-    , Conveyance.getInstance());
+      MACommandBinder.getInstance().runConditionalCommandWhilePressed(YButton, Shooter.getInstance()::getIR, new InstantCommand(Intake.getInstance().getMotorFunction(0)),
+      new InstantCommand(Conveyance.getInstance().getMotorFunction(0)));
 
-    
+      MACommandBinder.getInstance().runCommandWhileHeld(XButton, () -> Shooter.getInstance().setShooterMotor(Shooter.getInstance().getPID()), Shooter.getInstance());
+
+    MACommandBinder.getInstance().runInstantCommand(LB, Intake.getInstance()::reversePiston, Intake.getInstance());
     RB.whenPressed(() -> Elevator.getInstance().setPiston(!Elevator.getInstance().getPiston())
       ,Elevator.getInstance());
-     
-    LB.whenPressed(Intake.getInstance()::reversePiston,Intake.getInstance()); 
+    
+    MACommandBinder.getInstance().functionalBind(LB,() -> Chassis.getInstance().reset(), () -> Chassis.getInstance().tankDrive(.1, .1), (Boolean bool) -> Chassis.getInstance().tankDrive(0, 0), () -> Chassis.getInstance().average() < -4000, Chassis.getInstance());
+    //LB.whenPressed(Intake.getInstance()::reversePiston,Intake.getInstance()); 
     
     //backkButton.whileHeld(command);
     //startButton.whileHeld(command); 

@@ -49,7 +49,7 @@ public class MACommandBinder {
     }
 
     public void runConditionalCommandWhilePressed(JoystickButton button, BooleanSupplier condition, CommandBase onTrue,
-    CommandBase onFalse) {
+            CommandBase onFalse) {
         button.whileHeld(new ConditionalCommand(onTrue, onFalse, condition));
     }
 
@@ -58,7 +58,7 @@ public class MACommandBinder {
     }
 
     public void runCommandWhileHeld(JoystickButton button, Runnable toRun, Subsystem... subsystems) {
-        button.whileHeld(new RunCommand(toRun, subsystems));
+        button.whileHeld(new RunCommand(toRun, subsystems).withInterrupt(button::get));
     }
 
     public void startEndBind(JoystickButton button, Runnable initializeFunction, Runnable endFunction,
@@ -73,9 +73,9 @@ public class MACommandBinder {
     }
 
     public void functionalBind(JoystickButton button, Runnable initializeFunction, Runnable executeFunction,
-    Consumer<Boolean> endFunction, BooleanSupplier isFinished, Subsystem... subsystems) {
+            Consumer<Boolean> endFunction, BooleanSupplier isFinished, Subsystem... subsystems) {
         button.whileActiveContinuous(
-        new FunctionalCommand(initializeFunction, executeFunction, endFunction, isFinished, subsystems));
+                new FunctionalCommand(initializeFunction, executeFunction, endFunction, isFinished, subsystems));
     }
 
     public void perpetualBind(JoystickButton button, Command toRun) {
@@ -84,6 +84,15 @@ public class MACommandBinder {
 
     public void printWhenFinishedBind(JoystickButton button, Command toRun, String message) {
         button.whenPressed(toRun.andThen(new PrintCommand(message)));
+    }
+
+    public void runCommand(JoystickButton button, Runnable toRun, Subsystem... subsystems) {
+        button.whileActiveContinuous(new RunCommand(toRun, subsystems));
+    }
+
+    public void runCommandWithInterrupt(JoystickButton button, Runnable toRun, BooleanSupplier endCondition,
+            Subsystem... subsystems) {
+        button.whileActiveContinuous(new RunCommand(toRun, subsystems).withInterrupt(endCondition));
     }
 
     public static MACommandBinder getInstance() {

@@ -29,7 +29,7 @@ public class Conveyance extends SubsystemBase {
   }
 
   public Runnable getMotorFunction(double power) {
-    return conveyance.getMotorFunction(power);
+    return conveyanceMotor.getMotorFunction(power);
   }
 
   public double getVoltage(){
