@@ -684,4 +684,8 @@ public class MAMotorControler {
     public void followSparkMax(MAMotorControler motor) {
         canSparkMax.follow(motor.getSparkMax());
     }
+
+    public Runnable getMotorFunction(double power) {
+        return () -> set(power);
+    }
 }

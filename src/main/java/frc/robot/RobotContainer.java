@@ -27,7 +27,9 @@ import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Roulette;
 import frc.robot.subsystems.ShooterTransfer;
+import frc.robot.utils.MACommandBinder;
 import frc.robot.utils.RobotConstants;
+import frc.robot.utils.MACommandBinder;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -91,16 +93,17 @@ public class RobotContainer {
   private void configureButtonBindings() {
     //AButton.whenPressed(() -> Conveyance.getInstance().setMotor(coveyanceSpeed.getDouble(0)), Conveyance.getInstance())
           // .whenReleased(() -> Conveyance.getInstance().setMotor(0)); 
-     
+     MACommandBinder.getInstance().startEndBind(AButton, Intake.getInstance().getMotorFunction(-1), Intake.getInstance().getMotorFunction(0)
+     , Intake.getInstance());
     //BButton.whenPressed(() -> Intake.getInstance().setMotor(intakeSpeed.getDouble(0)), Intake.getInstance())
          //  .whenReleased(() -> Intake.getInstance().setMotor(0));
      
-    //XButton.whenPressed(() -> Intake.getInstance().setMotor(1), Intake.getInstance())
+    //XButton.whenPressed(() -> Intake.getInstance().setMotor(-1), Intake.getInstance())
           // .whenReleased(() -> Intake.getInstance().setMotor(0));
-     
-    YButton.whenPressed(() -> Conveyance.getInstance().setMotor(-1), Conveyance.getInstance())
-           .whenReleased(() -> Conveyance.getInstance().setMotor(0)); 
+    MACommandBinder.getInstance().startEndBind(YButton, Conveyance.getInstance().getMotorFunction(-1), Conveyance.getInstance().getMotorFunction(0)
+    , Conveyance.getInstance());
 
+    
     RB.whenPressed(() -> Elevator.getInstance().setPiston(!Elevator.getInstance().getPiston())
       ,Elevator.getInstance());
      

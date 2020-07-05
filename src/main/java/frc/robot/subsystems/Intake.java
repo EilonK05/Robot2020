@@ -48,6 +48,10 @@ public class Intake extends SubsystemBase {
   public void setMotor(double power){
     intakeMotor.set(power);
   }
+
+  public Runnable getMotorFunction(double power) {
+    return () -> setMotor(power);
+  }
   // Singletone
   public static Intake getInstance(){
     if (intake == null){

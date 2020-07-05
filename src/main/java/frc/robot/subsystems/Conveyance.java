@@ -27,6 +27,11 @@ public class Conveyance extends SubsystemBase {
   public void setMotor(double power){
     conveyanceMotor.set(power);
   }
+
+  public Runnable getMotorFunction(double power) {
+    return conveyance.getMotorFunction(power);
+  }
+
   public double getVoltage(){
     return conveyanceMotor.getStatorCurrent();
   }
