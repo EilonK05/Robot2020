@@ -84,6 +84,10 @@ public class Shooter extends SubsystemBase {
     return shooter;
   }
 
+  public void setSolenoid(boolean state){
+    shooterSolenoid.set(state);
+    }
+
   @Override
   public void periodic() {
     SmartDashboard.putNumber("Shooter Encoder", getVelocity());
